@@ -18,4 +18,11 @@ if (php_sapi_name() === 'cli-server') {
 require 'init_autoloader.php';
 
 // Run the application!
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+$appConfig = require 'config/application.config.php';
+if (file_exists('config/development.config.php')) {
+    $appConfig = \Zend\Stdlib\ArrayUtils::merge(
+        $appConfig,
+        require 'config/development.config.php'
+    );
+}
+Zend\Mvc\Application::init($appConfig)->run();
