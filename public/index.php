@@ -16,6 +16,7 @@ if (php_sapi_name() === 'cli-server') {
 
 // Setup autoloading
 require 'init_autoloader.php';
+define('REQUEST_MICROTIME', microtime(true));
 
 // Run the application!
 $appConfig = require 'config/application.config.php';
