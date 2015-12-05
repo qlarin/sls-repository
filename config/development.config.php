@@ -2,7 +2,7 @@
 
 return array(
     'modules' => array(
-        'ZfTool',
+        'ZFTool',
         'ZendDeveloperTools',
     ),
     'module_listener_options' => array(

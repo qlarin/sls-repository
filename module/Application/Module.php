@@ -9,16 +9,23 @@
 
 namespace Application;
 
+use Zend\EventManager\EventInterface;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
-class Module
+class Module implements ConfigProviderInterface, BootstrapListenerInterface, AutoloaderProviderInterface
 {
-    public function onBootstrap(MvcEvent $e)
+
+    public function onBootstrap(EventInterface $e)
     {
-        $eventManager = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        if ($e instanceof MvcEvent) {
+            $eventManager = $e->getApplication()->getEventManager();
+            $moduleRouteListener = new ModuleRouteListener();
+            $moduleRouteListener->attach($eventManager);
+        }
     }
 
     public function getConfig()
