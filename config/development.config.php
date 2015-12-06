@@ -1,5 +1,6 @@
 <?php
 
+define('REQUEST_MICROTIME', microtime(true));
 return array(
     'modules' => array(
         'ZFTool',
