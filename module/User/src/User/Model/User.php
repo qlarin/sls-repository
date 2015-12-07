@@ -22,19 +22,24 @@ class User
         $this->password = md5($clearPassword);
     }
 
+    public function __construct()
+    {
+        $date = new \DateTime();
+        $this->dor = $date->format('Y-m-d H:i:s');
+    }
+
     public function exchangeArray($data)
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
         $this->username = (!empty($data['username'])) ? $data['username'] : null;
         $this->password = (!empty($data['password'])) ? $data['password'] : null;
         $this->email = (!empty($data['email'])) ? $data['email'] : null;
-        $this->dor = (!empty($data['dor'])) ? $data['dor'] : null;
         $this->dob = (!empty($data['dob'])) ? $data['dob'] : null;
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->surname = (!empty($data['surname'])) ? $data['surname'] : null;
         $this->location = (!empty($data['location'])) ? $data['location'] : null;
-        $this->avatarId = (!empty($data['avatar_id'])) ? $data['avatar_id'] : null;
-        $this->isAdmin = (!empty($data['is_admin'])) ? $data['is_admin'] : null;
+        $this->avatarId = (!empty($data['avatar_id'])) ? $data['avatar_id'] : 1;
+        $this->isAdmin = (!empty($data['is_admin'])) ? $data['is_admin'] : false;
 
     }
 

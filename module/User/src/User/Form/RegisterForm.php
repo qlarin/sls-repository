@@ -6,6 +6,8 @@
 namespace User\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
+use Zend\Captcha;
 
 class RegisterForm extends Form
 {
@@ -20,7 +22,8 @@ class RegisterForm extends Form
             'attributes' => array(
                 'type'  => 'text',
                 'required' => 'required',
-                'placeholder' => 'Your name'
+                'placeholder' => 'Your name',
+                'class' => 'form-control col-xs-12 username',
             ),
             'options' => array(
                 'label' => '',
@@ -30,9 +33,9 @@ class RegisterForm extends Form
         $this->add(array(
             'name' => 'email',
             'attributes' => array(
-                'type'  => 'email',
+                'type'  => 'Email',
                 'required' => 'required',
-                'placeholder' => 'Email',
+                'placeholder' => 'Your email',
                 'class' => 'form-control col-xs-12 email',
             ),
             'options' => array(
@@ -43,9 +46,10 @@ class RegisterForm extends Form
         $this->add(array(
             'name' => 'password',
             'attributes' => array(
-                'type'  => 'password',
+                'type'  => 'Password',
                 'required' => 'required',
-                'placeholder' => 'Your password'
+                'placeholder' => 'Your password',
+                'class' => 'form-control col-xs-12 password',
             ),
             'options' => array(
                 'label' => '',
@@ -54,20 +58,42 @@ class RegisterForm extends Form
         $this->add(array(
             'name' => 'confirmPassword',
             'attributes' => array(
-                'type'  => 'password',
+                'type'  => 'Password',
                 'required' => 'required',
-                'placeholder' => 'Password'
+                'placeholder' => 'Confirm password',
+                'class' => 'form-control col-xs-12 confirmPassword',
             ),
             'options' => array(
                 'label' => '',
             ),
         ));
+
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'submit',
+                'type'  => 'Submit',
                 'value' => 'Submit'
             ),
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Captcha',
+            'name' => 'captcha',
+            'options' => array(
+                'label' => 'Please verify you are human',
+                'captcha' => new Captcha\Dumb(),
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 600
+                )
+            )
+        ));
+
     }
 }

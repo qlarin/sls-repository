@@ -49,8 +49,8 @@ return array(
             'user' => __DIR__ . '/../view',
         ),
         'template_map' => array(
-            'layout/layout' => __DIR__ . '/../view/layout/layout.twig',
-            'user/register/register' => __DIR__ . '/../view/user/register/register.twig',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            'user/register/register' => __DIR__ . '/../view/user/register/register.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.twig',
             'error/index'             => __DIR__ . '/../view/error/index.twig',
             'active' => true,

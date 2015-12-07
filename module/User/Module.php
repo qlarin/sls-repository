@@ -13,7 +13,7 @@ use Zend\Authentication\AuthenticationService;
 
 class Module implements AutoloaderProviderInterface
 {
-	public function onBootstrap(MvcEvent $e)
+	public function onBootstrap($e)
 	{
 		$eventManager = $e->getApplication()->getEventManager();
 		$moduleRouteListener = new ModuleRouteListener();
@@ -44,7 +44,7 @@ class Module implements AutoloaderProviderInterface
             ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    __NAMESPACE__ => __DIR__ . '/src/' . str_replace('\\', '/' , __NAMESPACE__),
                 ),
             ),
 		);
@@ -62,7 +62,7 @@ class Module implements AutoloaderProviderInterface
                     $authService->setAdapter($dbTableAuthAdapter);
                     return $authService;
                 },
-                'User\Model\UserTable' =>  function($sm) {
+                'UserTable' =>  function($sm) {
                     $tableGateway = $sm->get('UserTableGateway');
                     $table = new UserTable($tableGateway);
                     return $table;

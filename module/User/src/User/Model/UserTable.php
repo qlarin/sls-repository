@@ -3,8 +3,6 @@
 
 namespace User\Model;
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
 class UserTable
@@ -30,7 +28,7 @@ class UserTable
         ));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $id");
+            return false;
         }
         return $row;
     }
@@ -81,7 +79,19 @@ class UserTable
         ));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $userEmail");
+            return false;
+        }
+        return $row;
+    }
+
+    public function getUserByUsername($username)
+    {
+        $rowset = $this->tableGateway->select(array(
+            'username' => $username
+        ));
+        $row = $rowset->current();
+        if (!$row) {
+            return false;
         }
         return $row;
     }
