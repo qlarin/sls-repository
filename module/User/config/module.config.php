@@ -6,7 +6,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'User\Controller\Login' => 'User\Controller\LoginController',
-            'User\Controller\Register' => 'User\Controller\RegisterController'
+            'User\Controller\Register' => 'User\Controller\RegisterController',
+            'User\Controller\User' => 'User\Controller\UserController'
         ),
     ),
     'router' => array(
@@ -14,7 +15,10 @@ return array(
             'login' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/login',
+                    'route' => '/login[/:action]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'User\Controller\Login',
                         'action' => 'login',
@@ -36,6 +40,17 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'user' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/user',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\User',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'service_manager' => require __DIR__ . '/service.config.php',
@@ -51,6 +66,7 @@ return array(
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'user/register/register' => __DIR__ . '/../view/user/register/register.phtml',
+            'user/login/login' => __DIR__ . '/../view/user/login/login.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.twig',
             'error/index'             => __DIR__ . '/../view/error/index.twig',
             'active' => true,

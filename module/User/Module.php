@@ -56,7 +56,7 @@ class Module implements AutoloaderProviderInterface
             'factories' => array(
                 'AuthService' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter, 'username','email','password','MD5(?)');
+                    $dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter, 'user','email','password','MD5(?)');
 
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);
@@ -80,6 +80,14 @@ class Module implements AutoloaderProviderInterface
                 },
                 'RegisterFilter' => function ($sm) {
                     return new Form\RegisterFilter();
+                },
+                'LoginForm' => function ($sm) {
+                    $form = new Form\LoginForm();
+                    $form->setInputFilter($sm->get('LoginFilter'));
+                    return $form;
+                },
+                'LoginFilter' => function ($sm) {
+                    return new Form\LoginFilter();
                 },
             ),
         );

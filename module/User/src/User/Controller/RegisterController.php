@@ -5,8 +5,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use User\Model\User;
-use ZendTest\XmlRpc\Server\Exception;
-
 
 class RegisterController extends AbstractActionController
 {

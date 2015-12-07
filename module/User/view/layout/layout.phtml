@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <?php echo $this->headTitle($this->translate('Club des Champions'))->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?php echo $this->headTitle($this->translate('User Profile'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 
@@ -29,14 +29,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="<?php echo $this->url('users') ?>"> <?php echo $this->translate('Club des Champions') ?></a>
+            <a class="brand" href="<?php echo $this->url('user') ?>"> <?php echo $this->translate('User Profile') ?></a>
             <div class="nav-collapse ">
                 <ul class="nav navbar-nav">
-                    <li class="<?php echo $this->x_active; ?>"><a href="<?php echo $this->url('users') ?>"><?php echo $this->translate('Start') ?></a></li>
-                    <li class="<?php echo $this->login_active; ?>"><a href="<?php echo $this->url('users/login') ?>"><?php echo $this->translate('Anmeldung') ?></a></li>
-                    <li class="<?php echo $this->register_active; ?>"><a href="<?php echo $this->url('users/register') ?>"><?php echo $this->translate('Registrierung') ?></a></li>
-                    <li class="<?php echo $this->dokumentation_active; ?>"><a href="<?php echo $this->url('users/dokumentation') ?>"><?php echo $this->translate('Dokumentation') ?></a></li>
-
+                    <li class="<?php echo $this->userActive; ?>"><a href="<?php echo $this->url('user') ?>"><?php echo $this->translate('Profile') ?></a></li>
+                    <li class="<?php echo $this->loginActive; ?>"><a href="<?php echo $this->url('login') ?>"><?php echo $this->translate('Login') ?></a></li>
+                    <li class="<?php echo $this->registerActive; ?>"><a href="<?php echo $this->url('register') ?>"><?php echo $this->translate('Register') ?></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -45,10 +43,9 @@
 <div class="container">
     <?php echo $this->content; ?>
 
-    <a href="http://champion.local/users"><img src="../img/camer.jpg"  width="350" height="200" /></a>
     <hr>
     <footer>
-        <p>&copy; <?php echo date('Y') ?> by <b>Baduma</b>. <?php echo $this->translate('All rights reserved.') ?></p>
+        <p>&copy; <?php echo date('Y') ?></p>
     </footer>
 </div> <!-- /container -->
 <?php echo $this->inlineScript() ?>
