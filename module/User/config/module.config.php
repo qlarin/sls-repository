@@ -50,6 +50,19 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
+                'child_routes' => array(
+                    'edit' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/edit',
+                            'defaults' => array(
+                                'controller' => 'User\Controller\User',
+                                'action' => 'edit',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                ),
             ),
         ),
     ),

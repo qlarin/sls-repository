@@ -89,6 +89,14 @@ class Module implements AutoloaderProviderInterface
                 'LoginFilter' => function ($sm) {
                     return new Form\LoginFilter();
                 },
+                'UserEditForm' => function ($sm) {
+                    $form = new Form\UserEditForm();
+                    $form->setInputFilter($sm->get('UserEditFilter'));
+                    return $form;
+                },
+                'UserEditFilter' => function ($sm) {
+                    return new Form\UserEditFilter();
+                },
             ),
         );
     }

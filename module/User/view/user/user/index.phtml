@@ -13,7 +13,14 @@ $this->headScript()->appendScript(
 ?>
 <h1>Welcome</h1>
 <div>
-    <h4><?php echo $this->email; ?></h4>
+    <h4><?php echo $user->name; ?></h4>
+    <hr />
+    <a href="<?php echo $this->url('user/edit',
+        array(
+            'action' => 'edit',
+            'id' => $user->id
+        )
+    );?>">Edit data</a>
 
 </div>
 <hr />

@@ -58,7 +58,9 @@ class LoginController extends AbstractActionController
 					->setCredential($this->request->getPost('password'));
 			$result = $this->getAuthService()->authenticate();
 			if ($result->isValid()) {
-				$this->getAuthService()->getStorage()->write($this->request->getPost('email'));
+				$userTable = $this->getServiceLocator()->get('UserTable');
+				$user = $userTable->getUserByEmail($this->request->getPost('email'));
+				$this->getAuthService()->getStorage()->write($user);
 				return $this->redirect()->toRoute('login', array(
 						'action' =>  'confirm'
 				));
@@ -76,9 +78,9 @@ class LoginController extends AbstractActionController
 	{
 		$this->layout('layout/layout');
 		$this->layout()->setVariable('userActive', 'active');
-		$email = $this->getAuthService()->getStorage()->read();
+		$user = $this->getAuthService()->getStorage()->read();
 		$viewModel  = new ViewModel(array(
-			'email' => $email
+			'user' => $user
 		));
 		return $viewModel;
 	}
