@@ -14,7 +14,7 @@ class UserEditFilter extends InputFilter
     {
         $this->add(array(
             'name'       => 'name',
-            'required'   => true,
+            'required' => false,
             'filters'    => array(
                 array(
                     'name'    => 'StripTags',
@@ -33,7 +33,7 @@ class UserEditFilter extends InputFilter
         ));
         $this->add(array(
             'name'       => 'surname',
-            'required'   => true,
+            'required' => false,
             'filters'    => array(
                 array(
                     'name'    => 'StripTags',
@@ -52,8 +52,34 @@ class UserEditFilter extends InputFilter
         ));
 
         $this->add(array(
+            'name'       => 'dob',
+            'required' => false,
+            'filters'    => array(
+                array(
+                    'name' => 'StringTrim',
+                ),
+            ),
+            'validators' => array(
+                array(
+                    'name'    => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min'      => 0,
+                        'max'      => 20,
+                    ),
+                ),
+                array(
+                    'name' => 'Date',
+                    'options' => array(
+                        'format' => 'Y-m-d',
+                    ),
+                ) ,
+            ),
+        ));
+
+        $this->add(array(
             'name'       => 'location',
-            'required'   => true,
+            'required' => false,
             'filters'    => array(
                 array(
                     'name'    => 'StripTags',

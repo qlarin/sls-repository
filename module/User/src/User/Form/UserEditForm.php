@@ -17,10 +17,16 @@ class UserEditForm extends Form
         $this->setAttribute('enctype','multipart/form-data');
 
         $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'name',
             'attributes' => array(
                 'type'  => 'text',
-                'required' => 'required',
                 'placeholder' => 'Your firstname',
                 'class' => 'form-control col-xs-12 name',
             ),
@@ -33,9 +39,8 @@ class UserEditForm extends Form
             'name' => 'surname',
             'attributes' => array(
                 'type'  => 'text',
-                'required' => 'required',
                 'placeholder' => 'Your lastname',
-                'class' => 'form-control col-xs-12 lastname',
+                'class' => 'form-control col-xs-12 surname',
             ),
             'options' => array(
                 'label' => '',
@@ -45,13 +50,10 @@ class UserEditForm extends Form
         $this->add(array(
             'name' => 'dob',
             'attributes' => array(
-                'type'  => 'Date',
-                'required' => 'required',
+                'type'  => 'Zend\Form\Element\DateTime',
                 'placeholder' => 'Your date of birth',
-                'min'  => '1912-01-01',
-                'max'  => '2912-01-01',
-                'step' => '1',
-                'class' => 'form-control col-xs-12 dob',
+                'required' => false,
+                'class' => 'form-control col-xs-12 don',
             ),
             'options' => array(
                 'label' => '',
@@ -63,7 +65,6 @@ class UserEditForm extends Form
             'name' => 'location',
             'attributes' => array(
                 'type'  => 'Textarea',
-                'required' => 'required',
                 'placeholder' => 'Your location',
                 'class' => 'form-control col-xs-12 location',
             ),
@@ -72,11 +73,10 @@ class UserEditForm extends Form
             ),
         ));
 
-
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'Submit',
+                'type'  => 'submit',
                 'value' => 'Submit'
             ),
         ));

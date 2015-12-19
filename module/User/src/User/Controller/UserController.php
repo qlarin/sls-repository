@@ -26,14 +26,13 @@ class UserController extends AbstractActionController
     {
         $this->layout('layout/layout');
 
-        $user = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
-        var_dump($user);
+        $userTable = $this->getServiceLocator()->get('UserTable');
+        $user = $userTable->getUser($this->params()->fromRoute('id'));
         $form = $this->getServiceLocator()->get('UserEditForm');
         $form->bind($user);
-        $viewModel  = new ViewModel(array('form' => $form, 'id' => $user->id));
+        $viewModel  = new ViewModel(array('form' => $form, 'id' => $this->params()->fromRoute('id')));
         return $viewModel;
     }
-
     public function processAction()
     {
         $this->layout('layout/layout');
@@ -44,23 +43,21 @@ class UserController extends AbstractActionController
         $post = $this->request->getPost();
         $userTable = $this->getServiceLocator()->get('UserTable');
         $user = $userTable->getUser($post->id);
-        var_dump($user);
+
         $form = $this->getServiceLocator()->get('UserEditForm');
         $form->bind($user);
         $form->setData($post);
 
         if (!$form->isValid()) {
             $model = new ViewModel(array(
-                'error' => 'Something goes wrong, check your data!',
+                'error' => 'Something goes wrong, try one more time!',
                 'form'  => $form,
             ));
             $model->setTemplate('user/edit');
             return $model;
         }
-
         // Save user
         $this->getServiceLocator()->get('UserTable')->saveUser($user);
-
         return $this->redirect()->toRoute('user');
     }
 }

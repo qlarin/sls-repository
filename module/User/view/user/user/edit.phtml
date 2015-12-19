@@ -14,9 +14,8 @@
     $form->setAttribute('method', 'post');
     echo $this->form()->openTag($form);
     ?>
-    <?php var_dump($this->id) ?>
     <dl class="zend_form">
-
+        <?php echo $this->formHidden($form->get('id')); ?>
         <dd><?php
             echo $this->formElement($form->get('name'));
             echo $this->formElementErrors($form->get('name'));

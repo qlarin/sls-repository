@@ -25,6 +25,7 @@ class Module implements AutoloaderProviderInterface
             if (!in_array($controllerName,array(
                 'User\Controller\Register',
                 'User\Controller\Login',
+                'User\Controller\User',
             ))) {
                 $controller->layout('layout/layout');
             }

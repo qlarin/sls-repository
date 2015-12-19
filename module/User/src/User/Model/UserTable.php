@@ -28,7 +28,7 @@ class UserTable
         ));
         $row = $rowset->current();
         if (!$row) {
-            return false;
+            return new \Exception("Could not find row $id");
         }
         return $row;
     }
@@ -52,13 +52,14 @@ class UserTable
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getUser($id)) {
+            $user = $this->getUser($id);
+            if ($user) {
                 if (empty($data['password'])) {
                     unset($data['password']);
                 }
-                $this->tableGateway->update($data, array(
-                    'id' => $id,
-                ));
+                $data['username'] = $user->username;
+                $data['email'] = $user->email;
+                $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('User id does not exist');
             }

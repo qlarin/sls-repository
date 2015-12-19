@@ -43,26 +43,17 @@ return array(
             'user' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/user',
+                    'route' => '/user[/:action[/:id]]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9_-]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'User\Controller\User',
                         'action' => 'index',
                     ),
                 ),
                 'may_terminate' => true,
-                'child_routes' => array(
-                    'edit' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/edit',
-                            'defaults' => array(
-                                'controller' => 'User\Controller\User',
-                                'action' => 'edit',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                ),
             ),
         ),
     ),
