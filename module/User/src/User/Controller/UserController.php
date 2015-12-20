@@ -16,7 +16,7 @@ class UserController extends AbstractActionController
 
     public function indexAction()
     {
-        $this->layout('layout/layout');
+        $this->layout('layout/user_layout');
         $this->layout()->setVariable('userActive', 'active');
         $user = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
         $viewModel  = new ViewModel(array('user' => $user));
@@ -24,7 +24,7 @@ class UserController extends AbstractActionController
     }
     public function editAction()
     {
-        $this->layout('layout/layout');
+        $this->layout('layout/user_layout');
 
         $userTable = $this->getServiceLocator()->get('UserTable');
         $user = $userTable->getUser($this->params()->fromRoute('id'));
@@ -35,7 +35,7 @@ class UserController extends AbstractActionController
     }
     public function processAction()
     {
-        $this->layout('layout/layout');
+        $this->layout('layout/user_layout');
 
         if (!$this->request->isPost()) {
             return $this->redirect()->toRoute('user', array('action' => 'edit'));

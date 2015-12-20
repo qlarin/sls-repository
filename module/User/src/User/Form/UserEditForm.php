@@ -53,7 +53,7 @@ class UserEditForm extends Form
                 'type'  => 'Zend\Form\Element\DateTime',
                 'placeholder' => 'Your date of birth',
                 'required' => false,
-                'class' => 'form-control col-xs-12 don',
+                'class' => 'form-control col-xs-12 dob',
             ),
             'options' => array(
                 'label' => '',

@@ -59,43 +59,12 @@ return array(
     ),
     'service_manager' => require __DIR__ . '/service.config.php',
     'view_manager' => array(
-        'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
         'template_path_stack' => array(
             'user' => __DIR__ . '/../view',
         ),
         'template_map' => array(
-            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            'user/register/register' => __DIR__ . '/../view/user/register/register.phtml',
-            'user/login/login' => __DIR__ . '/../view/user/login/login.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.twig',
-            'error/index'             => __DIR__ . '/../view/error/index.twig',
-            'active' => true,
+            'layout/user_layout'           => __DIR__ . '/../view/layout/user_layout.phtml',
+            'active' =>true,
         ),
-        'strategies' => array('ZfcTwigViewStrategy')
     ),
-    'zfctwig' => array(
-        'environment_loader' => 'ZfcTwigLoaderChain',
-        'environment_class' => 'Twig_Environment',
-        'environment_options' => array(),
-        'loader_chain' => array(
-            'ZfcTwigLoaderTemplateMap',
-            'ZfcTwigLoaderTemplatePathStack'
-        ),
-        'extensions' => array(
-            'zfctwig' => 'ZfcTwigExtension'
-        ),
-        'suffix' => 'twig',
-        'enable_fallback_functions' => true,
-        'disable_zf_model' => true,
-        'helper_manager' => array(
-            'configs' => array(
-                'Zend\Navigation\View\HelperConfig'
-            )
-        )
-    )
-
 );
