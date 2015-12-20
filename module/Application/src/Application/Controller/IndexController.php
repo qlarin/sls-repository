@@ -16,6 +16,10 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $user = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        $this->layout()->setVariable('user', $user);
+        return new ViewModel(array(
+            'user' => $user,
+        ));
     }
 }

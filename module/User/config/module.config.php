@@ -26,6 +26,17 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'logout' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/logout',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Login',
+                        'action' => 'logout',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'register' => array(
                 'type' => 'segment',
                 'options' => array(
