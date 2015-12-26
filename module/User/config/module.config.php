@@ -7,7 +7,7 @@ return array(
         'invokables' => array(
             'User\Controller\Login' => 'User\Controller\LoginController',
             'User\Controller\Register' => 'User\Controller\RegisterController',
-            'User\Controller\User' => 'User\Controller\UserController'
+            'User\Controller\User' => 'User\Controller\UserController',
         ),
     ),
     'router' => array(

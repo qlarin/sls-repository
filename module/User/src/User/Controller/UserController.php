@@ -25,6 +25,7 @@ class UserController extends AbstractActionController
         $viewModel  = new ViewModel(array('user' => $user));
         return $viewModel;
     }
+
     public function editAction()
     {
         $this->layout('layout/user_layout');
