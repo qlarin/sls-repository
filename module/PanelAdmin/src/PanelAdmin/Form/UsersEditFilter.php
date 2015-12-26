@@ -3,12 +3,11 @@
  * Author: Stanisław Śledziona
  */
 
-namespace User\Form;
-
+namespace PanelAdmin\Form;
 
 use Zend\InputFilter\InputFilter;
 
-class UserEditFilter extends InputFilter
+class UsersEditFilter extends InputFilter
 {
     public function __construct()
     {

@@ -39,7 +39,7 @@ class User
         $this->surname = (!empty($data['surname'])) ? $data['surname'] : null;
         $this->location = (!empty($data['location'])) ? $data['location'] : null;
         $this->avatarId = (!empty($data['avatar_id'])) ? $data['avatar_id'] : 1;
-        $this->isAdmin = (!empty($data['is_admin'])) ? $data['is_admin'] : false;
+        $this->isAdmin = (!empty($data['isAdmin'])) ? $data['isAdmin'] : false;
 
     }
 

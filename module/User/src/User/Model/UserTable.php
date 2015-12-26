@@ -45,7 +45,7 @@ class UserTable
             'surname' => $user->surname,
             'location' => $user->location,
             'avatar_id' => $user->avatarId,
-            'is_admin' => $user->isAdmin,
+            'isAdmin' => $user->isAdmin,
         );
 
         $id = (int) $user->id;

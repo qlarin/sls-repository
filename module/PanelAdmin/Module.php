@@ -65,6 +65,14 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new User());
                     return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
                 },
+                'UsersEditForm' => function ($sm) {
+                    $form = new Form\UsersEditForm();
+                    $form->setInputFilter($sm->get('UsersEditFilter'));
+                    return $form;
+                },
+                'UsersEditFilter' => function ($sm) {
+                    return new Form\UsersEditFilter();
+                },
             ),
         );
     }
