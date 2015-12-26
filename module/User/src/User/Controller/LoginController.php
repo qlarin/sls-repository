@@ -14,8 +14,11 @@ class LoginController extends AbstractActionController
 	public function loginAction()
 	{
 		$this->layout('layout/layout');
-		$this->layout()->setVariable('loginActive', 'active');
 		$form = $this->getServiceLocator()->get('LoginForm');
+		$user = $this->getAuthService()->getStorage()->read();
+		if (!empty($user)) {
+			return $this->redirect()->toRoute('user');
+		}
 		return new ViewModel(array(
 				'form' => $form,
 		));

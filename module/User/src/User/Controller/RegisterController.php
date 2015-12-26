@@ -11,7 +11,10 @@ class RegisterController extends AbstractActionController
     public function registerAction()
     {
         $this->layout('layout/layout');
-        $this->layout()->setVariable('registerActive', 'active');
+        $user = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        if (!empty($user)) {
+            return $this->redirect()->toRoute('user');
+        }
         $form = $this->getServiceLocator()->get('RegisterForm');
         return new ViewModel(array(
             'form' => $form,
