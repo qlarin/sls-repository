@@ -1,5 +1,5 @@
 <?php
-
+$this->headTitle('Admin Panel ');
 $this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
 $this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
 
@@ -15,5 +15,13 @@ $this->headScript()->appendScript(
 <div>
     <h4><?php echo $this->escapeHtml($user->username); ?></h4>
     <hr />
+    <a href="<?php echo $this->url('admin/manage-users',
+        array('action' => 'index'));?>">Manage users</a>
+    <br />
+    <a href="<?php echo $this->url('admin/manage-animelist',
+        array('action' => 'index'));?>">Manage anime list</a>
+    <br />
+    <a href="<?php echo $this->url('admin/messages',
+        array('action' => 'index'));?>">Users messages</a>
 </div>
 <hr />
