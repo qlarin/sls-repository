@@ -7,7 +7,8 @@ return array(
         'invokables' => array(
             'User\Controller\Login' => 'User\Controller\LoginController',
             'User\Controller\Register' => 'User\Controller\RegisterController',
-            'User\Controller\User' => 'User\Controller\UserController'
+            'User\Controller\User' => 'User\Controller\UserController',
+            'User\Controller\Admin' => 'User\Controller\AdminController'
         ),
     ),
     'router' => array(
@@ -61,6 +62,21 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'User\Controller\User',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'admin' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/admin[/:action[/:id]]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Admin',
                         'action' => 'index',
                     ),
                 ),
