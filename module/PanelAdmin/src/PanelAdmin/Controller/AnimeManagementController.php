@@ -4,17 +4,17 @@
  * Author: Stanisław Śledziona
  */
 
-namespace User\Controller\PanelAdmin;
+namespace PanelAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 
-class MessagesController extends AbstractActionController
+class AnimeManagementController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->layout('layout/user_layout');
+        $this->layout('layout/admin_layout');
         $user = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
         if (empty($user)) {
             return $this->redirect()->toRoute('login');
