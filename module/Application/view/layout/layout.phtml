@@ -52,6 +52,10 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<?php echo $this->url('user') ?>">&nbsp;<?php echo $this->translate('Profile') ?></a></li>
                             <li class="divider"></li>
+                            <?php if ($user->isAdmin): ?>
+                                <li><a href="">&nbsp;<?php echo $this->translate('Admin panel') ?></a></li>
+                                <li class="divider"></li>
+                            <?php endif ?>
                             <li><a href="<?php echo $this->url('logout') ?>">&nbsp;<?php echo $this->translate('Logout') ?></a></li>
                         </ul>
                     </li>
