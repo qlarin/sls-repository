@@ -8,10 +8,6 @@ return array(
             'User\Controller\Login' => 'User\Controller\LoginController',
             'User\Controller\Register' => 'User\Controller\RegisterController',
             'User\Controller\User' => 'User\Controller\UserController',
-            'PanelAdmin\Controller\Admin' => 'PanelAdmin\Controller\AdminController',
-            'PanelAdmin\Controller\UserManagement' => 'PanelAdmin\Controller\UserManagementController',
-            'PanelAdmin\Controller\AnimeManagement' => 'PanelAdmin\Controller\AnimeManagementController',
-            'PanelAdmin\Controller\Messages' => 'PanelAdmin\Controller\MessagesController',
         ),
     ),
     'router' => array(
@@ -69,63 +65,6 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-            ),
-            'admin' => array(
-                'type' => 'segment',
-                'options' => array(
-                    'route' => '/admin',
-                    'constraints' => array(
-                    ),
-                    'defaults' => array(
-                        'controller' => 'PanelAdmin\Controller\Admin',
-                        'action' => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'manage-users' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/manage-users[/:action[/:id]]',
-                            'constraints' => array(
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'PanelAdmin\Controller\UserManagement',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
-                    'manage-animelist' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/manage-animelist[/:action[/:id]]',
-                            'constraints' => array(
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'PanelAdmin\Controller\AnimeManagement',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
-                    'messages' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/messages[/:action[/:id]]',
-                            'constraints' => array(
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'PanelAdmin\Controller\Messages',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
-                ),
             ),
         ),
     ),
