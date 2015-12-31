@@ -44,7 +44,7 @@ class UserTable
             'name' => $user->name,
             'surname' => $user->surname,
             'location' => $user->location,
-            'avatar_id' => $user->avatarId,
+            'avatar_url' => $user->avatarUrl,
             'isAdmin' => $user->isAdmin,
         );
 
