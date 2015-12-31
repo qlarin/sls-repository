@@ -6,6 +6,8 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use User\Model\User;
 use User\Model\UserTable;
+use Anime\Model\Anime;
+use Anime\Model\AnimeTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
@@ -65,6 +67,17 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new User());
                     return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
                 },
+                'AnimeTable' =>  function($sm) {
+                    $tableGateway = $sm->get('AnimeTableGateway');
+                    $table = new AnimeTable($tableGateway);
+                    return $table;
+                },
+                'AnimeTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Anime());
+                    return new TableGateway('anime', $dbAdapter, null, $resultSetPrototype);
+                },
                 'UsersEditForm' => function ($sm) {
                     $form = new Form\UsersEditForm();
                     $form->setInputFilter($sm->get('UsersEditFilter'));
@@ -72,6 +85,14 @@ class Module implements AutoloaderProviderInterface
                 },
                 'UsersEditFilter' => function ($sm) {
                     return new Form\UsersEditFilter();
+                },
+                'AnimeEditForm' => function ($sm) {
+                    $form = new Form\AnimeEditForm();
+                    $form->setInputFilter($sm->get('AnimeEditFilter'));
+                    return $form;
+                },
+                'AnimeEditFilter' => function ($sm) {
+                    return new Form\AnimeEditFilter();
                 },
             ),
         );
