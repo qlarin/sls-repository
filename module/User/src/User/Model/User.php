@@ -38,7 +38,7 @@ class User
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->surname = (!empty($data['surname'])) ? $data['surname'] : null;
         $this->location = (!empty($data['location'])) ? $data['location'] : null;
-        $this->avatarUrl = (!empty($data['avatar_url'])) ? $data['avatar_url'] : null;
+        $this->avatarUrl = (!empty($data['avatarUrl'])) ? $data['avatarUrl'] : null;
         $this->isAdmin = (!empty($data['isAdmin'])) ? $data['isAdmin'] : false;
 
     }
