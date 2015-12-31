@@ -54,6 +54,7 @@
                             <li class="divider"></li>
                             <?php if ($user->isAdmin): ?>
                                 <li><a href="<?php echo $this->url('admin') ?>">&nbsp;<?php echo $this->translate('Admin panel') ?></a></li>
+                                <li><a href="<?php echo $this->url('admin/manage-animelist') ?>">&nbsp;<?php echo $this->translate('Manage animes') ?></a></li>
                                 <li class="divider"></li>
                             <?php endif ?>
                             <li><a href="<?php echo $this->url('logout') ?>">&nbsp;<?php echo $this->translate('Logout') ?></a></li>

@@ -1,0 +1,73 @@
+<h3>Edycja anime</h3>
+
+<?php if ($this->error): ?>
+    <p class="error">
+        <?php echo $this->error ?>
+    </p>
+<?php endif ?>
+
+<section>
+    <?php
+    $form = $this->form;
+    $form->prepare();
+    $form->setAttribute('action', $this->url('admin/manage-animelist', array('action' => 'process')));
+    $form->setAttribute('method', 'post');
+    echo $this->form()->openTag($form);
+    ?>
+    <dl class="zend_form">
+        <?php echo $this->formHidden($form->get('id')); ?>
+        <dd><?php
+            echo $this->formLabel($form->get('title'));
+            echo $this->formElement($form->get('title'));
+            echo $this->formElementErrors($form->get('title'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formLabel($form->get('synopsis'));
+            echo $this->formElement($form->get('synopsis'));
+            echo $this->formElementErrors($form->get('synopsis'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formLabel($form->get('tags'));
+            echo $this->formElement($form->get('tags'));
+            echo $this->formElementErrors($form->get('tags'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formLabel($form->get('prequel'));
+            echo $this->formElement($form->get('prequel'));
+            echo $this->formElementErrors($form->get('prequel'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formLabel($form->get('sequel'));
+            echo $this->formElement($form->get('sequel'));
+            echo $this->formElementErrors($form->get('sequel'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formLabel($form->get('spinoff'));
+            echo $this->formElement($form->get('spinoff'));
+            echo $this->formElementErrors($form->get('spinoff'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formLabel($form->get('episodes'));
+            echo $this->formElement($form->get('episodes'));
+            echo $this->formElementErrors($form->get('episodes'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formElement($form->get('csrf'));
+            echo $this->formElementErrors($form->get('csrf'));
+            ?></dd>
+
+        <dd><?php
+            echo $this->formElement($form->get('submit'));
+            echo $this->formElementErrors($form->get('submit'));
+            ?></dd>
+
+    </dl>
+    <?php echo $this->form()->closeTag() ?>
+</section>

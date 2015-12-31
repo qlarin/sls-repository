@@ -40,12 +40,6 @@ class AnimeEditFilter extends InputFilter
                 ),
             ),
             'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                    ),
-                ),
             ),
         ));
 
@@ -125,9 +119,6 @@ class AnimeEditFilter extends InputFilter
             'name' => 'episodes',
             'required' => false,
             'filters' => array(
-                array(
-                    'name' => 'StripTrim',
-                ),
             ),
             'validators' => array(
             ),

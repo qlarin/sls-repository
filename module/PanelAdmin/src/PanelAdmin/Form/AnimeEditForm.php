@@ -24,20 +24,23 @@ class AnimeEditForm extends Form
 
         $this->add(array(
             'name' => 'title',
+            'type' => 'text',
             'attributes' => array(
-                'type' => 'text',
                 'placeholder' => 'Title',
-                'class' => 'form-control col-xs-12 title',
+                'class' => 'form-control col-xs-4 title',
             ),
             'options' => array(
-                'label' => '',
+                'label' => 'Title',
             ),
         ));
 
         $this->add(array(
             'name' => 'synopsis',
+            'type' => 'Zend\Form\Element\Textarea',
             'attributes' => array(
-                'type' => 'Zend\Form\Element\Textarea',
+                'class' => 'form-control',
+                'rows' => '6',
+                'cols' => '12',
             ),
             'options' => array(
                 'label' => 'Synopsis',
@@ -46,56 +49,57 @@ class AnimeEditForm extends Form
 
         $this->add(array(
             'name' => 'tags',
+            'type' => 'text',
             'attributes' => array(
-                'type' => 'text',
                 'placeholder' => 'Tags',
                 'class' => 'form-control col-xs-12 tags',
             ),
             'options' => array(
-                'label' => '',
+                'label' => 'Tags',
             ),
         ));
 
         $this->add(array(
             'name' => 'prequel',
+            'type' => 'text',
             'attributes' => array(
-                'type' => 'text',
                 'placeholder' => 'Prequel',
-                'class' => 'form-control col-xs-12 prequel',
+                'class' => 'form-control col-xs-3 prequel',
             ),
             'options' => array(
-                'label' => '',
+                'label' => 'Prequel',
             ),
         ));
 
         $this->add(array(
             'name' => 'sequel',
+            'type' => 'text',
             'attributes' => array(
-                'type' => 'text',
                 'placeholder' => 'Sequel',
-                'class' => 'form-control col-xs-12 sequel',
+                'class' => 'form-control col-xs-3 sequel',
             ),
             'options' => array(
-                'label' => '',
+                'label' => 'Sequel',
             ),
         ));
 
         $this->add(array(
             'name' => 'spinoff',
+            'type' => 'text',
             'attributes' => array(
-                'type' => 'text',
                 'placeholder' => 'Spinoff',
-                'class' => 'form-control col-xs-12 spinoff',
+                'class' => 'form-control col-xs-3 spinoff',
             ),
             'options' => array(
-                'label' => '',
+                'label' => 'Spinoff',
             ),
         ));
 
         $this->add(array(
             'name' => 'episodes',
+            'type' => 'Zend\Form\Element\Number',
             'attributes' => array(
-                'type' => 'Zend\Form\Element\Number',
+                'class' => 'form-control',
                 'min' => '0',
                 'max' => '2000',
                 'step' => '1',
@@ -103,6 +107,24 @@ class AnimeEditForm extends Form
             'options' => array(
                 'label' => 'Episodes',
             ),
+        ));
+
+        $this->add(array(
+            'name' => 'submit',
+            'type'  => 'submit',
+            'attributes' => array(
+                'value' => 'Submit'
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 600
+                )
+            )
         ));
     }
 }

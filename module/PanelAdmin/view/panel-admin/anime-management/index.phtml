@@ -11,5 +11,21 @@ $this->headScript()->appendScript(
 
 ?>
 <div>
-
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($animes as $anime) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($anime->title);?></td>
+                <td>
+                    <a href="<?php echo $this->url('admin/manage-animelist',
+                        array('action'=>'edit', 'id' => $anime->id));?>">Edit</a> |
+                    <a href="<?php echo $this->url('admin/manage-animelist',
+                        array('action'=>'delete', 'id' => $anime->id));?>" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 </div>

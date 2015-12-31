@@ -20,7 +20,10 @@ class AnimeManagementController extends AbstractActionController
             return $this->redirect()->toRoute('login');
         }
         $this->layout()->setVariable('user', $user);
-        $viewModel  = new ViewModel(array('admin' => $user));
+        $animeTable = $this->getServiceLocator()->get('AnimeTable');
+        $viewModel  = new ViewModel(array(
+            'animes' => $animeTable->fetchAll()
+        ));
         return $viewModel;
     }
 
