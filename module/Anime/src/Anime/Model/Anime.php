@@ -1,10 +1,11 @@
 <?php
-
-namespace Anime\Model;
-
 /**
  * Author: Stanisław Śledziona
  */
+
+namespace Anime\Model;
+
+
 class Anime
 {
     public $id;
