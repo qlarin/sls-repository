@@ -39,11 +39,12 @@ return array(
                                 'action' => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
-                    'manage-animelist' => array(
+                    'manage-anime' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/manage-animelist[/:action[/:id]]',
+                            'route'    => '/manage-anime[/:action[/:id]]',
                             'constraints' => array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[a-zA-Z0-9_-]*',
@@ -53,6 +54,7 @@ return array(
                                 'action' => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
                     'messages' => array(
                         'type'    => 'Segment',
@@ -67,6 +69,7 @@ return array(
                                 'action' => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
                 ),
             ),

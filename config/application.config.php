@@ -11,7 +11,8 @@ return array(
         'ZfcTwig',
         'Application',
     	'User',
-        'PanelAdmin'
+        'PanelAdmin',
+        'Anime',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

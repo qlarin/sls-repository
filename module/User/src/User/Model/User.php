@@ -14,7 +14,7 @@ class User
     public $name;
     public $surname;
     public $location;
-    public $avatarId;
+    public $avatarUrl;
     public $isAdmin;
 
     public function setPassword($clearPassword)
@@ -38,7 +38,7 @@ class User
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->surname = (!empty($data['surname'])) ? $data['surname'] : null;
         $this->location = (!empty($data['location'])) ? $data['location'] : null;
-        $this->avatarId = (!empty($data['avatar_id'])) ? $data['avatar_id'] : 1;
+        $this->avatarUrl = (!empty($data['avatarUrl'])) ? $data['avatarUrl'] : null;
         $this->isAdmin = (!empty($data['isAdmin'])) ? $data['isAdmin'] : false;
 
     }
