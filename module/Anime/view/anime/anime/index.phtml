@@ -11,6 +11,6 @@ $this->headScript()->appendScript(
 
 ?>
 <div>
-    <h3> elo <?php echo $user->name;?></h3>
+    <h3> elo <?php if($user) echo $user->name;?></h3>
     <p> narazie pusta lista anime, bo jestem leniwy</p>
 </div>
