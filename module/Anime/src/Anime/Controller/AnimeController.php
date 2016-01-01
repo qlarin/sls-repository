@@ -16,9 +16,11 @@ class AnimeController extends AbstractActionController
         $this->layout('layout/anime_layout');
         $user = $this->getLoggedUser();
         $this->layout()->setVariable('user', $user);
+        $animeTable = $this->getServiceLocator()->get('AnimeTable');
         return new ViewModel(array(
-            'user' => $user)
-        );
+            'user' => $user,
+            'animes' => $animeTable->fetchAll(),
+        ));
     }
 
     private function getLoggedUser()

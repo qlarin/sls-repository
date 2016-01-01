@@ -11,6 +11,18 @@ $this->headScript()->appendScript(
 
 ?>
 <div>
-    <h3> elo <?php if($user) echo $user->name;?></h3>
-    <p> narazie pusta lista anime, bo jestem leniwy</p>
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($animes as $anime) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($anime->title);?></td>
+                <td>
+                    Show more info!
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 </div>
