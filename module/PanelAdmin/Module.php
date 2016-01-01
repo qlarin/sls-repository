@@ -94,6 +94,14 @@ class Module implements AutoloaderProviderInterface
                 'AnimeEditFilter' => function ($sm) {
                     return new Form\AnimeEditFilter();
                 },
+                'AnimeCreateForm' => function ($sm) {
+                    $form = new Form\AnimeCreateForm();
+                    $form->setInputFilter($sm->get('AnimeCreateFilter'));
+                    return $form;
+                },
+                'AnimeCreateFilter' => function ($sm) {
+                    return new Form\AnimeCreateFilter();
+                },
             ),
         );
     }

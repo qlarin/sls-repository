@@ -1,0 +1,16 @@
+<?php
+$this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
+
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript(
+    '$(function() {
+ 	$("a.ui-button").button();
+  });', 'text/javascript');
+
+?>
+<div>
+    <h3> elo <?php echo $user->name;?></h3>
+    <p> narazie pusta lista anime, bo jestem leniwy</p>
+</div>

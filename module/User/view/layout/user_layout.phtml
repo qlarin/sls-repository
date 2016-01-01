@@ -39,6 +39,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="<?php echo $this->url('home') ?>">&nbsp;<?php echo $this->translate('Home') ?></a></li>
+                <li><a href="<?php echo $this->url('anime') ?>">&nbsp;<?php echo $this->translate('Anime') ?></a></li>
                 <?php if (!$this->user): ?>
                     <li><a href="<?php echo $this->url('login') ?>">&nbsp;<?php echo $this->translate('Login') ?></a></li>
                     <li><a href="<?php echo $this->url('register') ?>">&nbsp;<?php echo $this->translate('Sign-up') ?></a></li>
@@ -54,7 +55,7 @@
                             <li class="divider"></li>
                             <?php if ($user->isAdmin): ?>
                                 <li><a href="<?php echo $this->url('admin') ?>">&nbsp;<?php echo $this->translate('Admin panel') ?></a></li>
-                                <li><a href="<?php echo $this->url('admin/manage-animelist') ?>">&nbsp;<?php echo $this->translate('Manage animes') ?></a></li>
+                                <li><a href="<?php echo $this->url('admin/manage-anime') ?>">&nbsp;<?php echo $this->translate('Manage animes') ?></a></li>
                                 <li class="divider"></li>
                             <?php endif ?>
                             <li><a href="<?php echo $this->url('logout') ?>">&nbsp;<?php echo $this->translate('Logout') ?></a></li>

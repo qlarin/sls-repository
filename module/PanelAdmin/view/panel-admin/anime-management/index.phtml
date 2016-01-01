@@ -11,6 +11,7 @@ $this->headScript()->appendScript(
 
 ?>
 <div>
+    <a href="<?php echo $this->url('admin/manage-anime', array('action' => 'create'));?>">Add new anime</a>
     <table class="table">
         <tr>
             <th>Title</th>
@@ -20,9 +21,9 @@ $this->headScript()->appendScript(
             <tr>
                 <td><?php echo $this->escapeHtml($anime->title);?></td>
                 <td>
-                    <a href="<?php echo $this->url('admin/manage-animelist',
+                    <a href="<?php echo $this->url('admin/manage-anime',
                         array('action'=>'edit', 'id' => $anime->id));?>">Edit</a> |
-                    <a href="<?php echo $this->url('admin/manage-animelist',
+                    <a href="<?php echo $this->url('admin/manage-anime',
                         array('action'=>'delete', 'id' => $anime->id));?>" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>

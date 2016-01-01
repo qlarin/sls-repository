@@ -1,4 +1,4 @@
-<h3>Edycja anime</h3>
+<h3>Dodaj nowe anime</h3>
 
 <?php if ($this->error): ?>
     <p class="error">
@@ -10,7 +10,7 @@
     <?php
     $form = $this->form;
     $form->prepare();
-    $form->setAttribute('action', $this->url('admin/manage-anime', array('action' => 'process')));
+    $form->setAttribute('action', $this->url('admin/manage-anime', array('action' => 'createProcess')));
     $form->setAttribute('method', 'post');
     echo $this->form()->openTag($form);
     ?>

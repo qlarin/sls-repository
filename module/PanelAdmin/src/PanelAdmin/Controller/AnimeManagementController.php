@@ -9,6 +9,7 @@ namespace PanelAdmin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
+use Anime\Model\Anime;
 
 class AnimeManagementController extends AbstractActionController
 {
@@ -50,7 +51,7 @@ class AnimeManagementController extends AbstractActionController
     {
         $this->layout('layout/admin_layout');
         if (!$this->request->isPost()) {
-            return $this->redirect()->toRoute('admin/manage-animelist', array('action' => 'create'));
+            return $this->redirect()->toRoute('admin/manage-anime', array('action' => 'create'));
         }
         $post = $this->request->getPost();
         $form = $this->getServiceLocator()->get('AnimeCreateForm');
@@ -60,7 +61,7 @@ class AnimeManagementController extends AbstractActionController
                 'error' => "There were one or more issues with your submission.",
                 'form' => $form,
             ));
-            $model->setTemplate('admin-panel/anime-management/create');
+            $model->setTemplate('panel-admin/anime-management/create');
             return $model;
         }
         $data = $form->getData();
@@ -72,7 +73,7 @@ class AnimeManagementController extends AbstractActionController
                 'error' => 'An anime is already added in DB',
                 'form' => $form,
             ));
-            $model->setTemplate('admin-panel/anime-management/create');
+            $model->setTemplate('panel-admin/anime-management/create');
             return $model;
         }
     }
@@ -101,14 +102,14 @@ class AnimeManagementController extends AbstractActionController
         $this->layout('layout/admin_layout');
         $this->getServiceLocator()->get('AnimeTable')
             ->deleteAnime($this->params()->fromRoute('id'));
-        return $this->redirect()->toRoute('admin/manage-animelist');
+        return $this->redirect()->toRoute('admin/manage-anime');
     }
 
     public function processAction()
     {
         $this->layout('layout/admin_layout');
         if (!$this->request->isPost()) {
-            return $this->redirect()->toRoute('admin/manage-animelist', array('action' => 'edit'));
+            return $this->redirect()->toRoute('admin/manage-anime', array('action' => 'edit'));
         }
         $post = $this->request->getPost();
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
@@ -127,7 +128,7 @@ class AnimeManagementController extends AbstractActionController
         }
 
         $this->getServiceLocator()->get('AnimeTable')->saveAnime($anime);
-        return $this->redirect()->toRoute('admin/manage-animelist');
+        return $this->redirect()->toRoute('admin/manage-anime');
     }
 
     private function checkIfNotExist(array $data)

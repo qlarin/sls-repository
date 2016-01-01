@@ -41,10 +41,10 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
-                    'manage-animelist' => array(
+                    'manage-anime' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/manage-animelist[/:action[/:id]]',
+                            'route'    => '/manage-anime[/:action[/:id]]',
                             'constraints' => array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[a-zA-Z0-9_-]*',
