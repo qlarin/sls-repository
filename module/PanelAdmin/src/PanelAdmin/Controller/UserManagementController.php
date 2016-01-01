@@ -74,7 +74,7 @@ class UserManagementController extends AbstractActionController
                 'error' => 'Something goes wrong, please enter correct data',
                 'form' => $form,
             ));
-            $model->setTemplate('admin/manage-users/edit');
+            $model->setTemplate('panel-admin/user-management/edit');
             return $model;
         }
 

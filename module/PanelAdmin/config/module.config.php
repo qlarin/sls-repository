@@ -39,6 +39,7 @@ return array(
                                 'action' => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
                     'manage-animelist' => array(
                         'type'    => 'Segment',
@@ -53,6 +54,7 @@ return array(
                                 'action' => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
                     'messages' => array(
                         'type'    => 'Segment',
@@ -67,6 +69,7 @@ return array(
                                 'action' => 'index',
                             ),
                         ),
+                        'may_terminate' => true,
                     ),
                 ),
             ),

@@ -27,9 +27,54 @@ class AnimeManagementController extends AbstractActionController
         return $viewModel;
     }
 
+    protected function initLayout()
+    {
+        $this->layout('layout/admin_layout');
+        $admin = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        if (empty($admin)) {
+            return $this->redirect()->toRoute('login');
+        }
+        $this->layout()->setVariable('user', $admin);
+    }
+
     public function createAction()
     {
+        $this->initLayout();
+        $form = $this->getServiceLocator()->get('AnimeCreateForm');
+        return new ViewModel(array(
+            'form' => $form,
+        ));
+    }
 
+    public function createProcessAction()
+    {
+        $this->layout('layout/admin_layout');
+        if (!$this->request->isPost()) {
+            return $this->redirect()->toRoute('admin/manage-animelist', array('action' => 'create'));
+        }
+        $post = $this->request->getPost();
+        $form = $this->getServiceLocator()->get('AnimeCreateForm');
+        $form->setData($post);
+        if (!$form->isValid()) {
+            $model = new ViewModel(array(
+                'error' => "There were one or more issues with your submission.",
+                'form' => $form,
+            ));
+            $model->setTemplate('admin-panel/anime-management/create');
+            return $model;
+        }
+        $data = $form->getData();
+        if ($this->checkIfNotExist($data)) {
+            $this->createAnime($form->getData());
+            return $this->redirect()->toRoute('admin');
+        } else {
+            $model = new ViewModel(array(
+                'error' => 'An anime is already added in DB',
+                'form' => $form,
+            ));
+            $model->setTemplate('admin-panel/anime-management/create');
+            return $model;
+        }
     }
 
     public function editAction()
@@ -77,11 +122,27 @@ class AnimeManagementController extends AbstractActionController
                 'error' => 'Something goes wrong, please enter correct data',
                 'form' => $form,
             ));
-            $model->setTemplate('admin/manage-animelist/edit');
+            $model->setTemplate('panel-admin/anime-management/edit');
             return $model;
         }
 
         $this->getServiceLocator()->get('AnimeTable')->saveAnime($anime);
         return $this->redirect()->toRoute('admin/manage-animelist');
+    }
+
+    private function checkIfNotExist(array $data)
+    {
+        $animeTable = $this->getServiceLocator()->get('AnimeTable');
+        $isFree = $animeTable->getAnimeByTitle($data['title']) ? false : true;
+        return $isFree;
+    }
+
+    protected function createAnime(array $data)
+    {
+        $anime = new Anime();
+        $anime->exchangeArray($data);
+        $animeTable = $this->getServiceLocator()->get('AnimeTable');
+        $animeTable->saveAnime($anime);
+        return true;
     }
 }
