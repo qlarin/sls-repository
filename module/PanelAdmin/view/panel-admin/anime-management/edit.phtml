@@ -57,6 +57,14 @@
             echo $this->formElement($form->get('episodes'));
             echo $this->formElementErrors($form->get('episodes'));
             ?></dd>
+        </br>
+        <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>"/>
+        </br>
+        <dd><?php
+            echo $this->formLabel($form->get('imageUrl'));
+            echo $this->formFile($form->get('imageUrl'));
+            echo $this->formElementErrors($form->get('imageUrl'));
+            ?></dd>
 
         <dd><?php
             echo $this->formElement($form->get('csrf'));

@@ -59,9 +59,15 @@
             ?></dd>
 
         <dd><?php
+            echo $this->formLabel($form->get('imageUrl'));
+            echo $this->formFile($form->get('imageUrl'));
+            echo $this->formElementErrors($form->get('imageUrl'));
+            ?></dd>
+
+        <dd><?php
             echo $this->formElement($form->get('csrf'));
             echo $this->formElementErrors($form->get('csrf'));
-            ?></dd>
+            ?></dd></br>
 
         <dd><?php
             echo $this->formElement($form->get('submit'));

@@ -53,7 +53,10 @@ class AnimeManagementController extends AbstractActionController
         if (!$this->request->isPost()) {
             return $this->redirect()->toRoute('admin/manage-anime', array('action' => 'create'));
         }
-        $post = $this->request->getPost();
+        $post = array_merge_recursive(
+            $this->request->getPost()->toArray(),
+            $this->request->getFiles()->toArray()
+        );
         $form = $this->getServiceLocator()->get('AnimeCreateForm');
         $form->setData($post);
         if (!$form->isValid()) {
@@ -92,7 +95,8 @@ class AnimeManagementController extends AbstractActionController
         $form->bind($anime);
         $viewModel = new ViewModel(array(
             'form' => $form,
-            'id' => $this->params()->fromRoute('id')
+            'id' => $this->params()->fromRoute('id'),
+            'anime' => $anime,
         ));
         return $viewModel;
     }
@@ -111,20 +115,37 @@ class AnimeManagementController extends AbstractActionController
         if (!$this->request->isPost()) {
             return $this->redirect()->toRoute('admin/manage-anime', array('action' => 'edit'));
         }
+        $files = $this->request->getFiles();
         $post = $this->request->getPost();
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
-        $anime = $animeTable->getAnime($post->id);
+        $anime = $animeTable->getAnime($post['id']);
+        $oldUrl = $anime->imageUrl;
+        $newUrl = $files->imageUrl;
+        if (!empty($newUrl['name'])) {
+            if (!$this->checkIfImagesEqual($oldUrl, $newUrl)) {
+                $post = array_merge_recursive(
+                    $this->request->getPost()->toArray(),
+                    $files->toArray()
+                );
+            }
+        }
         $form = $this->getServiceLocator()->get('AnimeEditForm');
         $form->bind($anime);
         $form->setData($post);
-
         if (!$form->isValid()) {
             $model = new ViewModel(array(
                 'error' => 'Something goes wrong, please enter correct data',
                 'form' => $form,
+                'anime' => $anime,
             ));
             $model->setTemplate('panel-admin/anime-management/edit');
             return $model;
+        }
+        $data = $form->getData();
+        if (!empty($newUrl['name']) && $this->checkIfImagesEqual($oldUrl, $newUrl) == false) {
+            $data->imageUrl = substr($data->imageUrl['tmp_name'], 7);
+        } else {
+            $data->imageUrl = $oldUrl;
         }
 
         $this->getServiceLocator()->get('AnimeTable')->saveAnime($anime);
@@ -138,9 +159,31 @@ class AnimeManagementController extends AbstractActionController
         return $isFree;
     }
 
+    private function decodeImageName($oldUrl)
+    {
+        $oldUrl = substr($oldUrl, 0, strpos($oldUrl, '_'));
+        return substr($oldUrl, 10);
+    }
+
+    private function checkIfImagesEqual($oldUrl, $newUrl)
+    {
+        $equal = false;
+        $oldName = $this->decodeImageName($oldUrl);
+        $newName = strstr($newUrl['name'], '.', true);
+        if (strpos($newName, '_') !== false) {
+            $newName = substr($newUrl['name'], 0, strpos($newName, '_'));
+        }
+        if ($oldName === $newName) {
+            $equal = true;
+        }
+        return $equal;
+    }
+
     protected function createAnime(array $data)
     {
         $anime = new Anime();
+        $img = $data['imageUrl']['tmp_name'];
+        $data['imageUrl'] = substr($img, 7);
         $anime->exchangeArray($data);
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
         $animeTable->saveAnime($anime);

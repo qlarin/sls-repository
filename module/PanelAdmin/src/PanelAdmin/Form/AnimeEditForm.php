@@ -110,6 +110,20 @@ class AnimeEditForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'imageUrl',
+            'type' => 'Zend\Form\Element\File',
+            'attributes' => array(
+                'id' => 'imageUrl',
+            ),
+            'options' => array(
+                'label' => 'Image Upload',
+                'label_attributes' => array (
+                    'class' => 'col-sm-3 text-right',
+                ),
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'type'  => 'submit',
             'attributes' => array(
