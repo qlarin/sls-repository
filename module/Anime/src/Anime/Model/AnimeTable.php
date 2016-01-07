@@ -5,6 +5,7 @@
 
 namespace Anime\Model;
 
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
 class AnimeTable
@@ -33,6 +34,14 @@ class AnimeTable
             return new \Exception("Could not find row $id");
         }
         return $row;
+    }
+
+    public function getRecentlyAddedAnimes()
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) {
+           $select->order('id DESC')->limit(4);
+        });
+        return $rowset;
     }
 
     public function saveAnime(Anime $anime)

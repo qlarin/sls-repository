@@ -19,7 +19,7 @@ class AnimeController extends AbstractActionController
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
         return new ViewModel(array(
             'user' => $user,
-            'animes' => $animeTable->fetchAll(),
+            'animes' => $animeTable->getRecentlyAddedAnimes(),
         ));
     }
 

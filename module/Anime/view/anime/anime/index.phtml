@@ -10,19 +10,22 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
-<div>
-    <table class="table">
-        <tr>
-            <th>Title</th>
-            <th>&nbsp;</th>
-        </tr>
+
+<div class="well">Recently Added</div>
+    <div class="row spec center-block">
         <?php foreach ($animes as $anime) : ?>
-            <tr>
-                <td><?php echo $this->escapeHtml($anime->title);?></td>
-                <td>
-                    Show more info!
-                </td>
-            </tr>
+            <div class="col-xs-6 col-md-3">
+                <?php if (empty($anime->imageUrl)): ?>
+                    <a href="" class="thumbnail">
+                        <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" alt="<?php echo $anime->title; ?>" class="img-rounded"/>
+                        <p class="title-crop"><?php echo $this->escapeHtml($anime->title);?></p>
+                    </a>
+                <?php else: ?>
+                    <a href="" class="thumbnail">
+                        <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>" class="img-rounded"/>
+                        <p class="title-crop"><?php echo $this->escapeHtml($anime->title);?></p>
+                    </a>
+                <?php endif ?>
+            </div>
         <?php endforeach; ?>
-    </table>
-</div>
+    </div>

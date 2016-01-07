@@ -139,7 +139,6 @@ class AnimeManagementController extends AbstractActionController
                 'anime' => $anime,
             ));
             $model->setTemplate('panel-admin/anime-management/edit');
-            return $model;
         }
         $data = $form->getData();
         if (!empty($newUrl['name']) && $this->checkIfImagesEqual($oldUrl, $newUrl) == false) {

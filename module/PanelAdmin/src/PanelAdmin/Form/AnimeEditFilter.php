@@ -144,7 +144,7 @@ class AnimeEditFilter extends InputFilter
                 array(
                     'name' => 'fileextension',
                     'options' => array(
-                        'extension' => array('jpg', 'jpeg', 'png'),
+                        'extension' => array('jpg', 'jpeg', 'png', 'svg'),
                     ),
                 ),
             ),
