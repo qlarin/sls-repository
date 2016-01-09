@@ -1,0 +1,32 @@
+<?php
+$this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
+
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript(
+    '$(function() {
+ 	$("a.ui-button").button();
+  });', 'text/javascript');
+
+?>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row spec center-block">
+            <div class="col-xs-12">
+                <div class="col-md-3">
+                    <?php if (empty($anime->imageUrl)): ?>
+                        <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
+                    <?php else: ?>
+                        <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
+                    <?php endif ?>
+                </div>
+                <div class="col-md-9">
+                    <h2 class="title-crop"><?php echo $this->escapeHtml($anime->title);?></h2>
+                    <div id="synopsis"><p><?php echo $this->escapeHtml($anime->synopsis);?></p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

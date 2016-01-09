@@ -48,10 +48,18 @@ div.container a.brand {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
-    margin: 10px;
+}
+
+#synopsis {
+    text-align: justify;
 }
 
 .thumbnail {
+    max-height: 360px;
+    min-width: 50%;
+}
+
+.img-responsive {
     max-height: 360px;
     min-width: 50%;
 }
