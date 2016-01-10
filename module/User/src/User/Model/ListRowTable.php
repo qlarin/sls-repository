@@ -6,6 +6,7 @@
 namespace User\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
 
 class ListRowTable
 {
@@ -40,6 +41,14 @@ class ListRowTable
             return new \Exception("Could not find row $id");
         }
         return $row;
+    }
+
+    public function getListByUserId($userId)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($userId) {
+            $select->where('userId = ' . $userId);
+        });
+        return $rowset;
     }
 
     public function saveRow(Row $row)

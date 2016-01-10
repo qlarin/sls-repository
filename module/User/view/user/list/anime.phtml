@@ -13,10 +13,6 @@ $this->headScript()->appendScript(
 ?>
 <h1>Welcome</h1>
 <div>
-    <h4><?php echo $this->escapeHtml($user->username); ?></h4>
-    <hr />
-    <a href="<?php echo $this->url('user',
-        array('action' => 'edit', 'id' => $user->id));?>">Edit your data</a>
-    <a href="<?php echo $this->url('list', array('action' => 'anime', 'id' => $user->id));?>">Manage your list</a>
+
 </div>
 <hr />
