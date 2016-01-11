@@ -14,8 +14,35 @@ $this->headScript()->appendScript(
 
 <div class="well"><h1 class="title-crop"><?php echo $user->username;?> list</h1></div>
 <div class="row spec center-block">
-    <?php foreach ($animeList as $animeRow) : ?>
-        <p><?php echo $animeRow->title . ' '; ?><?php echo 'episode: ' . $animeRow->episode; ?><?php echo '/' . $animeRow->episodes; ?></p>
-    <?php endforeach; ?>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>&nbsp;</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Progress</th>
+            </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($animeList as $animeRow) : ?>
+                    <tr>
+                        <td><?php echo $animeRow->id; ?></td>
+                        <td><?php echo $animeRow->title; ?></td>
+                        <?php if ((!empty($loggedUser->id) && $loggedUser->id === $user->id)): ?>
+                            <td>Edit/Delete</td>
+                        <?php else: ?>
+                            <td></td>
+                        <?php endif ?>
+                        <td><?php echo $animeRow->rating; ?></td>
+                        <td><?php echo $animeRow->status; ?></td>
+                        <td><?php echo $animeRow->episode . '/' . $animeRow->episodes; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <hr />
