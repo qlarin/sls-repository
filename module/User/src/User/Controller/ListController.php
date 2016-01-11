@@ -20,22 +20,11 @@ class ListController extends AbstractActionController
         $userTable = $this->getServiceLocator()->get('UserTable');
         $userId = $this->params()->fromRoute('id');
         $animeList = $animeListTable->fetchAllWithAnimeByUserId($userId);
-        var_dump($animeList);
         return new ViewModel(array(
             'loggedUser' => $this->loggedUser,
             'user' => $userTable->getUser($userId),
             'animeList' => $animeList,
         ));
-    }
-
-    private function prepareFinalList($animeList) {
-        $animesId = array();
-        foreach ($animeList as $animeRow) {
-            $animesId[] = $animeRow->animeId;
-        }
-
-
-        var_dump($animesId);
     }
 
     private function initLayout()
