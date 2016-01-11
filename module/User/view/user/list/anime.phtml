@@ -11,8 +11,11 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
-<h1>Welcome</h1>
-<div>
 
+<div class="well"><h1 class="title-crop"><?php echo $user->username;?> list</h1></div>
+<div class="row spec center-block">
+    <?php foreach ($animeList as $animeRow) : ?>
+        <p><?php echo $animeRow->title . ' '; ?><?php echo 'episode: ' . $animeRow->episode; ?><?php echo '/' . $animeRow->episodes; ?></p>
+    <?php endforeach; ?>
 </div>
 <hr />

@@ -48,7 +48,16 @@ class ListRowTable
         $rowset = $this->tableGateway->select(function (Select $select) use ($userId) {
             $select->where('userId = ' . $userId);
         });
-        return $rowset;
+        return $rowset->buffer();
+    }
+
+    public function fetchAllWithAnimeByUserId($userId)
+    {
+        $result = $this->tableGateway->select(function (Select $select) use ($userId) {
+            $select->join('anime', 'list_row.animeId = anime.id', array('title', 'episodes'))
+            ->where('userId = ' . $userId);
+        });
+        return $result->buffer();
     }
 
     public function saveRow(Row $row)
