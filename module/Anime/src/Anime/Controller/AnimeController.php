@@ -37,7 +37,7 @@ class AnimeController extends AbstractActionController
         $this->layout()->setVariable('user', $user);
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
         $anime = $animeTable->getAnime($this->params()->fromRoute('id'));
-        $form = $this->serviceLocator()->get('AddAnimeToListForm');
+        $form = $this->getServiceLocator()->get('AddAnimeToListForm');
         return new ViewModel(array(
             'user' => $user,
             'anime' => $anime,

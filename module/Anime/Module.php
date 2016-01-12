@@ -71,7 +71,7 @@ class Module implements AutoloaderProviderInterface
                 },
                 'AnimeTable' =>  function($sm) {
                     $tableGateway = $sm->get('AnimeTableGateway');
-                    $table = new UserTable($tableGateway);
+                    $table = new AnimeTable($tableGateway);
                     return $table;
                 },
                 'AnimeTableGateway' => function ($sm) {
@@ -82,7 +82,7 @@ class Module implements AutoloaderProviderInterface
                 },
                 'ListRowTable' =>  function($sm) {
                     $tableGateway = $sm->get('ListRowTableGateway');
-                    $table = new UserTable($tableGateway);
+                    $table = new ListRowTable($tableGateway);
                     return $table;
                 },
                 'ListRowTableGateway' => function ($sm) {

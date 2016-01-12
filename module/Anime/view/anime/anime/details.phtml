@@ -86,51 +86,21 @@ $this->headScript()->appendScript(
                 <dl class="zend_form">
                     <?php echo $this->formHidden($form->get('id')); ?>
                     <dd><?php
-                        echo $this->formLabel($form->get('title'));
-                        echo $this->formElement($form->get('title'));
-                        echo $this->formElementErrors($form->get('title'));
+                        echo $this->formLabel($form->get('status'));
+                        echo $this->formElement($form->get('status'));
+                        echo $this->formElementErrors($form->get('status'));
                         ?></dd>
 
                     <dd><?php
-                        echo $this->formLabel($form->get('synopsis'));
-                        echo $this->formElement($form->get('synopsis'));
-                        echo $this->formElementErrors($form->get('synopsis'));
+                        echo $this->formLabel($form->get('rating'));
+                        echo $this->formElement($form->get('rating'));
+                        echo $this->formElementErrors($form->get('rating'));
                         ?></dd>
 
                     <dd><?php
-                        echo $this->formLabel($form->get('tags'));
-                        echo $this->formElement($form->get('tags'));
-                        echo $this->formElementErrors($form->get('tags'));
-                        ?></dd>
-
-                    <dd><?php
-                        echo $this->formLabel($form->get('prequel'));
-                        echo $this->formElement($form->get('prequel'));
-                        echo $this->formElementErrors($form->get('prequel'));
-                        ?></dd>
-
-                    <dd><?php
-                        echo $this->formLabel($form->get('sequel'));
-                        echo $this->formElement($form->get('sequel'));
-                        echo $this->formElementErrors($form->get('sequel'));
-                        ?></dd>
-
-                    <dd><?php
-                        echo $this->formLabel($form->get('spinoff'));
-                        echo $this->formElement($form->get('spinoff'));
-                        echo $this->formElementErrors($form->get('spinoff'));
-                        ?></dd>
-
-                    <dd><?php
-                        echo $this->formLabel($form->get('episodes'));
-                        echo $this->formElement($form->get('episodes'));
-                        echo $this->formElementErrors($form->get('episodes'));
-                        ?></dd>
-
-                    <dd><?php
-                        echo $this->formLabel($form->get('imageUrl'));
-                        echo $this->formFile($form->get('imageUrl'));
-                        echo $this->formElementErrors($form->get('imageUrl'));
+                        echo $this->formLabel($form->get('episode'));
+                        echo $this->formElement($form->get('episode'));
+                        echo $this->formElementErrors($form->get('episode'));
                         ?></dd>
 
                     <dd><?php
