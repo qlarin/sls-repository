@@ -60,7 +60,7 @@ class ListRowTable
         return $result->buffer();
     }
 
-    public function saveRow(Row $row)
+    public function saveRow(ListRow $row)
     {
         $data = array (
             'id' => $row->id,

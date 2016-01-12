@@ -45,19 +45,23 @@ class AnimeController extends AbstractActionController
         ));
     }
 
-    public function addToListAction()
+    public function addToListProcessAction()
     {
         $this->layout('layout/anime_layout');
         if (!$this->request->isPost()) {
             return $this->redirect()->toRoute('anime');
         }
         $post = $this->request->getPost();
-        $form = $this->getServiceLocator()->get('AnimeCreateForm');
+        $form = $this->getServiceLocator()->get('AddAnimeToListForm');
         $form->setData($post);
+        $user = $this->getLoggedUser();
+        $animeTable = $this->getServiceLocator()->get('AnimeTable');
         if (!$form->isValid()) {
             $model = new ViewModel(array(
                 'error' => "There were one or more issues with your submission.",
                 'form' => $form,
+                'user' => $user,
+                'anime' => $animeTable->getAnime($form->getData()['animeId']),
             ));
             $model->setTemplate('anime/anime/details');
             return $model;
@@ -70,6 +74,8 @@ class AnimeController extends AbstractActionController
             $model = new ViewModel(array(
                 'error' => 'You already added that anime to your list',
                 'form' => $form,
+                'user' => $user,
+                'anime' => $animeTable->getAnime($data['animeId']),
             ));
             $model->setTemplate('anime/anime/details');
             return $model;

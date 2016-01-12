@@ -14,7 +14,7 @@ class AddAnimeToListFilter extends InputFilter
 
         $this->add(array(
             'name' => 'status',
-            'required' => false,
+            'required' => true,
             'filters' => array(
             ),
             'validators' => array(
@@ -32,7 +32,7 @@ class AddAnimeToListFilter extends InputFilter
 
         $this->add(array(
             'name' => 'episode',
-            'required' => false,
+            'required' => true,
             'filters' => array(
             ),
             'validators' => array(

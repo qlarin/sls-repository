@@ -23,6 +23,20 @@ class AddAnimeToListForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'userId',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'animeId',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'status',
             'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
@@ -30,12 +44,13 @@ class AddAnimeToListForm extends Form
             ),
             'options' => array(
                 'label' => 'Status',
+                'empty_option' => 'Please choose status',
                 'value_options' => array(
-                    '0' => 'Plan to watch',
-                    '1' => 'Watching',
-                    '2' => 'Finished',
-                    '3' => 'On hold',
-                    '4' => 'Dropped',
+                    'Plan to watch' => 'Plan to watch',
+                    'Watching' => 'Watching',
+                    'Finished' => 'Finished',
+                    'On hold' => 'On hold',
+                    'Dropped' => 'Dropped',
                 ),
             ),
         ));

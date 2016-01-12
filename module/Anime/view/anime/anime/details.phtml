@@ -30,6 +30,14 @@ $this->headScript()->appendScript(
         </div>
     </div>
 </div>
+<?php if ($this->error): ?>
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong class="error">
+            <?php echo $this->error ?>
+        </strong>
+    </div>
+<?php endif ?>
 <div class="container col-md-12">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">Anime Data</a></li>
@@ -69,22 +77,18 @@ $this->headScript()->appendScript(
         </div>
         <div id="menu1" class="tab-pane fade">
             <h3>Add anime</h3>
-            <?php if ($this->error): ?>
-                <p class="error">
-                    <?php echo $this->error ?>
-                </p>
-            <?php endif ?>
-
             <section>
                 <?php
                 $form = $this->form;
                 $form->prepare();
-                $form->setAttribute('action', $this->url('anime', array('action' => 'addToList', 'id' => $anime->id, 'userId' => $user->id)));
+                $form->setAttribute('action', $this->url('anime', array('action' => 'addToListProcess')));
                 $form->setAttribute('method', 'post');
                 echo $this->form()->openTag($form);
                 ?>
                 <dl class="zend_form">
                     <?php echo $this->formHidden($form->get('id')); ?>
+                    <?php echo $this->formHidden($form->get('animeId')->setValue($anime->id)); ?>
+                    <?php echo $this->formHidden($form->get('userId')->setValue($user->id)); ?>
                     <dd><?php
                         echo $this->formLabel($form->get('status'));
                         echo $this->formElement($form->get('status'));
@@ -112,7 +116,6 @@ $this->headScript()->appendScript(
                         echo $this->formElement($form->get('submit'));
                         echo $this->formElementErrors($form->get('submit'));
                         ?></dd>
-
                 </dl>
                 <?php echo $this->form()->closeTag() ?>
             </section>
