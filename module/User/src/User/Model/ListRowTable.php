@@ -84,4 +84,17 @@ class ListRowTable
         }
     }
 
+    public function getAnimeRowByIds($animeId, $userId)
+    {
+        $rowset = $this->tableGateway->select(array(
+            'animeId' => $animeId,
+            'userId' => $userId
+        ));
+        $row = $rowset->current();
+        if (!$row) {
+            return false;
+        }
+        return $row;
+    }
+
 }

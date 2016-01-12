@@ -30,3 +30,124 @@ $this->headScript()->appendScript(
         </div>
     </div>
 </div>
+<div class="container col-md-12">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Anime Data</a></li>
+        <li><a data-toggle="tab" href="#menu1">Add to list</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>Anime Data</h3>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Title</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->title); ?></div>
+            </div>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Tags</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->tags); ?></div>
+            </div>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Prequel</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->prequel); ?></div>
+            </div>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Sequel</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->sequel); ?></div>
+            </div>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Spinoff</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->spinoff); ?></div>
+            </div>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Average rating</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->avgRating); ?></div>
+            </div>
+            <div class="row spec center-block">
+                <div class="col-xs-4">Episodes</div>
+                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->episodes); ?></div>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Add anime</h3>
+            <?php if ($this->error): ?>
+                <p class="error">
+                    <?php echo $this->error ?>
+                </p>
+            <?php endif ?>
+
+            <section>
+                <?php
+                $form = $this->form;
+                $form->prepare();
+                $form->setAttribute('action', $this->url('anime', array('action' => 'addToList', 'id' => $anime->id, 'userId' => $user->id)));
+                $form->setAttribute('method', 'post');
+                echo $this->form()->openTag($form);
+                ?>
+                <dl class="zend_form">
+                    <?php echo $this->formHidden($form->get('id')); ?>
+                    <dd><?php
+                        echo $this->formLabel($form->get('title'));
+                        echo $this->formElement($form->get('title'));
+                        echo $this->formElementErrors($form->get('title'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('synopsis'));
+                        echo $this->formElement($form->get('synopsis'));
+                        echo $this->formElementErrors($form->get('synopsis'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('tags'));
+                        echo $this->formElement($form->get('tags'));
+                        echo $this->formElementErrors($form->get('tags'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('prequel'));
+                        echo $this->formElement($form->get('prequel'));
+                        echo $this->formElementErrors($form->get('prequel'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('sequel'));
+                        echo $this->formElement($form->get('sequel'));
+                        echo $this->formElementErrors($form->get('sequel'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('spinoff'));
+                        echo $this->formElement($form->get('spinoff'));
+                        echo $this->formElementErrors($form->get('spinoff'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('episodes'));
+                        echo $this->formElement($form->get('episodes'));
+                        echo $this->formElementErrors($form->get('episodes'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('imageUrl'));
+                        echo $this->formFile($form->get('imageUrl'));
+                        echo $this->formElementErrors($form->get('imageUrl'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formElement($form->get('csrf'));
+                        echo $this->formElementErrors($form->get('csrf'));
+                        ?></dd></br>
+
+                    <dd><?php
+                        echo $this->formElement($form->get('submit'));
+                        echo $this->formElementErrors($form->get('submit'));
+                        ?></dd>
+
+                </dl>
+                <?php echo $this->form()->closeTag() ?>
+            </section>
+        </div>
+    </div>
+</div>
+
+
