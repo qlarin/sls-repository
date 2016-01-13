@@ -76,51 +76,76 @@ $this->headScript()->appendScript(
             </div>
         </div>
         <div id="menu1" class="tab-pane fade">
-            <h3>Add anime</h3>
-            <section>
-                <?php
-                $form = $this->form;
-                $form->prepare();
-                $form->setAttribute('action', $this->url('anime', array('action' => 'addToListProcess')));
-                $form->setAttribute('method', 'post');
-                echo $this->form()->openTag($form);
-                ?>
-                <dl class="zend_form">
-                    <?php echo $this->formHidden($form->get('id')); ?>
-                    <?php echo $this->formHidden($form->get('animeId')->setValue($anime->id)); ?>
-                    <?php echo $this->formHidden($form->get('userId')->setValue($user->id)); ?>
-                    <dd><?php
-                        echo $this->formLabel($form->get('status'));
-                        echo $this->formElement($form->get('status'));
-                        echo $this->formElementErrors($form->get('status'));
-                        ?></dd>
+            <?php if (!empty($user)): ?>
+                <h3>Add anime</h3>
+                <section>
+                    <?php
+                    $form = $this->form;
+                    $form->prepare();
+                    $form->setAttribute('action', $this->url('anime', array('action' => 'addToListProcess')));
+                    $form->setAttribute('method', 'post');
+                    echo $this->form()->openTag($form);
+                    ?>
+                    <dl class="zend_form">
+                        <?php echo $this->formHidden($form->get('id')); ?>
+                        <?php echo $this->formHidden($form->get('animeId')->setValue($anime->id)); ?>
+                        <?php echo $this->formHidden($form->get('userId')->setValue($user->id)); ?>
+                        <dd><?php
+                            echo $this->formLabel($form->get('status'));
+                            echo $this->formElement($form->get('status'));
+                            echo $this->formElementErrors($form->get('status'));
+                            ?></dd>
 
-                    <dd><?php
-                        echo $this->formLabel($form->get('rating'));
-                        echo $this->formElement($form->get('rating'));
-                        echo $this->formElementErrors($form->get('rating'));
-                        ?></dd>
+                        <dd><?php
+                            echo $this->formLabel($form->get('rating'));
+                            echo $this->formElement($form->get('rating'));
+                            echo $this->formElementErrors($form->get('rating'));
+                            ?></dd>
 
-                    <dd><?php
-                        echo $this->formLabel($form->get('episode'));
-                        echo $this->formElement($form->get('episode'));
-                        echo $this->formElementErrors($form->get('episode'));
-                        ?></dd>
+                        <dd><?php
+                            echo $this->formLabel($form->get('episode'));
+                            echo $this->formElement($form->get('episode'));
+                            echo $this->formElementErrors($form->get('episode'));
+                            ?></dd>
 
-                    <dd><?php
-                        echo $this->formElement($form->get('csrf'));
-                        echo $this->formElementErrors($form->get('csrf'));
-                        ?></dd></br>
+                        <dd><?php
+                            echo $this->formElement($form->get('csrf'));
+                            echo $this->formElementErrors($form->get('csrf'));
+                            ?></dd></br>
 
-                    <dd><?php
-                        echo $this->formElement($form->get('submit'));
-                        echo $this->formElementErrors($form->get('submit'));
-                        ?></dd>
-                </dl>
-                <?php echo $this->form()->closeTag() ?>
-            </section>
+                        <dd><?php
+                            echo $this->formElement($form->get('submit'));
+                            echo $this->formElementErrors($form->get('submit'));
+                            ?></dd>
+                    </dl>
+                    <?php echo $this->form()->closeTag() ?>
+                </section>
+            <?php else: ?>
+                <div class="alert alert-danger fade in">
+                    <strong class="error">
+                        You need to be logged in to add anime to your list!
+                    </strong>
+                </div>
+            <?php endif ?>
         </div>
     </div>
 </div>
+<div class="container col-md-12">
+    <ul class="pager">
+        <?php if (!empty($prev)): ?>
+        <li class="previous"><a href="<?php echo $this->url('anime',
+                array('action'=>'details', 'id' => $prev->id));?>">Previous</a></li>
+        <?php else: ?>
+        <li class="previous disabled"><a href="#"">Previous</a></li>
+        <?php endif ?>
+        <?php if (!empty($next)): ?>
+            <li class="next"><a href="<?php echo $this->url('anime',
+                    array('action'=>'details', 'id' => $next->id));?>">Next</a></li>
+        <?php else: ?>
+            <li class="next disabled"><a href="#"">Next</a></li>
+        <?php endif ?>
+    </ul>
+</div>
+
 
 

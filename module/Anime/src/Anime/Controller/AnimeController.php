@@ -42,6 +42,8 @@ class AnimeController extends AbstractActionController
             'user' => $user,
             'anime' => $anime,
             'form' => $form,
+            'prev' => $animeTable->getPreviousAnime($anime->id),
+            'next' => $animeTable->getNextAnime($anime->id),
         ));
     }
 
@@ -62,11 +64,25 @@ class AnimeController extends AbstractActionController
                 'form' => $form,
                 'user' => $user,
                 'anime' => $animeTable->getAnime($form->getData()['animeId']),
+                'prev' => $animeTable->getPreviousAnime($form->getData()['animeId']),
+                'next' => $animeTable->getNextAnime($form->getData()['animeId']),
             ));
             $model->setTemplate('anime/anime/details');
             return $model;
         }
         $data = $form->getData();
+        if ($this->checkIfExceededMaxEpisodes($data, $animeTable)) {
+            $model = new ViewModel(array(
+                'error' => 'You cannot set more episodes than anime has',
+                'form' => $form,
+                'user' => $user,
+                'anime' => $animeTable->getAnime($data['animeId']),
+                'prev' => $animeTable->getPreviousAnime($data['animeId']),
+                'next' => $animeTable->getNextAnime($data['animeId']),
+            ));
+            $model->setTemplate('anime/anime/details');
+            return $model;
+        }
         if ($this->checkIfNotExist($data)) {
             $this->addRowToList($form->getData());
             return $this->redirect()->toRoute('user');
@@ -76,10 +92,23 @@ class AnimeController extends AbstractActionController
                 'form' => $form,
                 'user' => $user,
                 'anime' => $animeTable->getAnime($data['animeId']),
+                'prev' => $animeTable->getPreviousAnime($data['animeId']),
+                'next' => $animeTable->getNextAnime($data['animeId']),
             ));
             $model->setTemplate('anime/anime/details');
             return $model;
         }
+    }
+
+    private function checkIfExceededMaxEpisodes(array $data, $animeTable)
+    {
+        $exceed = false;
+        $anime = $animeTable->getAnime($data['animeId']);
+        if ($data['episode'] > $anime->episodes)
+        {
+            $exceed = true;
+        }
+        return $exceed;
     }
 
     private function checkIfNotExist(array $data)
@@ -97,4 +126,6 @@ class AnimeController extends AbstractActionController
         $animeListTable->saveRow($listRow);
         return true;
     }
+
+
 }

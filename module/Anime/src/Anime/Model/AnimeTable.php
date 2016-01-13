@@ -44,6 +44,22 @@ class AnimeTable
         return $rowset;
     }
 
+    public function getPreviousAnime($id)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($id) {
+            $select->where('id = (select max(id) from anime where id < ' . $id . ')');
+        });
+        return $rowset->current();
+    }
+
+    public function getNextAnime($id)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($id) {
+            $select->where('id = (select min(id) from anime where id > ' . $id . ')');
+        });
+        return $rowset->current();
+    }
+
     public function saveAnime(Anime $anime)
     {
         $data = array(

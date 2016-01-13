@@ -27,6 +27,14 @@ class ListController extends AbstractActionController
         ));
     }
 
+    public function deleteAction()
+    {
+        $this->initLayout();
+        $this->getServiceLocator()->get('ListRowTable')
+            ->deleteRow($this->params()->fromRoute('id'));
+        return $this->redirect()->toRoute('list', array('id' => $this->loggedUser->id));
+    }
+
     private function initLayout()
     {
         $this->layout('layout/user_layout');
