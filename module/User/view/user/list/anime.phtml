@@ -11,7 +11,6 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
-
 <div class="well"><h1 class="title-crop"><?php echo $user->username;?> list</h1></div>
 <div class="row spec center-block">
     <div class="table-responsive">
@@ -30,7 +29,10 @@ $this->headScript()->appendScript(
                     <tr>
                         <td><?php echo $animeRow->title; ?></td>
                         <?php if ((!empty($loggedUser->id) && $loggedUser->id === $user->id)): ?>
-                            <td><a href="#" class="glyphicon glyphicon-edit"></a>
+                            <td><a href="<?php echo $this->url('list', array(
+                                    'action' => 'editRow',
+                                    'id' => $animeRow->id
+                                ));?>" class="glyphicon glyphicon-edit"></a>
                                 <a href="<?php echo $this->url('list', array(
                                     'action' => 'delete',
                                     'id' => $animeRow->id
@@ -48,4 +50,3 @@ $this->headScript()->appendScript(
         </table>
     </div>
 </div>
-<hr />

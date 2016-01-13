@@ -7,11 +7,11 @@ namespace Anime\Form;
 
 use Zend\Form\Form;
 
-class AddAnimeToListForm extends Form
+class EditAnimeOnListForm extends Form
 {
     public function __construct($name = null)
     {
-        parent::__construct('Add anime to list');
+        parent::__construct('Edit row on list');
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype', 'multipart/form-data');
 
