@@ -98,6 +98,15 @@ class ListController extends AbstractActionController
             return $model;
         }
         $this->getServiceLocator()->get('ListRowTable')->saveRow($row);
+        $result = $listRowTable->calculateRating($data->animeId);
+        $anime = $animeTable->getAnime($data->animeId);
+        if (!empty($result)) {
+            $anime->avgRating = floatval($result->rating);
+            $anime->countRating = intval($result->count);
+        } else if ($anime->avgRating == 0) {
+            $anime->countRating = 0;
+        }
+        $animeTable->saveAnime($anime);
         return $this->redirect()->toRoute('list', array('id' => $this->loggedUser->id));
     }
 

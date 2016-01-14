@@ -18,6 +18,8 @@ class ListRow
     public $title;
     public $episodes;
 
+    public $count;
+
     public function exchangeArray($data) {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
         $this->episode = (!empty($data['episode'])) ? $data['episode'] : null;
@@ -27,6 +29,8 @@ class ListRow
         $this->animeId = (!empty($data['animeId'])) ? $data['animeId'] : null;
         $this->title = (!empty($data['title'])) ? $data['title'] : null;
         $this->episodes = (!empty($data['episodes'])) ? $data['episodes'] : null;
+
+        $this->count = (!empty($data['count'])) ? $data['count'] : null;
     }
     public function getArrayCopy()
     {

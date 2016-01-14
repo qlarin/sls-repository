@@ -7,6 +7,8 @@ namespace User\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Expression;
+use Zend\Db\Sql\Sql;
 
 class ListRowTable
 {
@@ -95,6 +97,23 @@ class ListRowTable
             return false;
         }
         return $row;
+    }
+
+    public function calculateRating($animeId)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($animeId) {
+            $select->columns(array(
+                'count' => new Expression('COUNT(1)'),
+                'rating' => new Expression('AVG(rating)'),
+                'animeId',
+            ));
+            $select->where(array(
+                'animeId = ' . intval($animeId),
+                'rating is not null',
+                ));
+
+        });
+        return $rowset->current();
     }
 
 }

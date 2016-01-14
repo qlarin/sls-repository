@@ -66,6 +66,7 @@ class AnimeTable
             'title' => $anime->title,
             'synopsis' => $anime->synopsis,
             'tags' => $anime->tags,
+            'countRating' => $anime->countRating,
             'avgRating' => $anime->avgRating,
             'prequel' => $anime->prequel,
             'sequel' => $anime->sequel,
@@ -105,5 +106,4 @@ class AnimeTable
         }
         return $row;
     }
-
 }
