@@ -85,6 +85,7 @@ class AnimeController extends AbstractActionController
         }
         if ($this->checkIfNotExist($data)) {
             $this->addRowToList($form->getData());
+            $this->checkRating($data);
             return $this->redirect()->toRoute('user');
         } else {
             $model = new ViewModel(array(
@@ -125,6 +126,21 @@ class AnimeController extends AbstractActionController
         $animeListTable = $this->getServiceLocator()->get('ListRowTable');
         $animeListTable->saveRow($listRow);
         return true;
+    }
+
+    protected function checkRating(array $data)
+    {
+        $animeListTable = $this->getServiceLocator()->get('ListRowTable');
+        $result = $animeListTable->calculateRating($data['animeId']);
+        $animeTable = $this->getServiceLocator()->get('AnimeTable');
+        $anime = $animeTable->getAnime($data['animeId']);
+        if (!empty($result)) {
+            $anime->avgRating = floatval($result->rating);
+            $anime->countRating = intval($result->count);
+        } else if ($anime->avgRating == 0) {
+            $anime->countRating = 0;
+        }
+        $animeTable->saveAnime($anime);
     }
 
 
