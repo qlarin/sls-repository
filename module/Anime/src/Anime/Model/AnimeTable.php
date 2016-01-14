@@ -44,6 +44,15 @@ class AnimeTable
         return $rowset;
     }
 
+    public function getTopRatedAnimes()
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) {
+            $select->where('avgRating > 0');
+            $select->order('avgRating DESC')->limit(4);
+        });
+        return $rowset;
+    }
+
     public function getPreviousAnime($id)
     {
         $rowset = $this->tableGateway->select(function (Select $select) use ($id) {

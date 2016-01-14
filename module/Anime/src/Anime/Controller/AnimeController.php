@@ -21,6 +21,7 @@ class AnimeController extends AbstractActionController
         return new ViewModel(array(
             'user' => $user,
             'animes' => $animeTable->getRecentlyAddedAnimes(),
+            'topRatedAnimes' => $animeTable->getTopRatedAnimes(),
         ));
     }
 

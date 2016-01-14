@@ -31,3 +31,23 @@ $this->headScript()->appendScript(
             </div>
         <?php endforeach; ?>
     </div>
+<div class="well">Top Rated</div>
+<div class="row spec center-block">
+    <?php foreach ($topRatedAnimes as $anime) : ?>
+        <div class="col-xs-6 col-md-3">
+            <?php if (empty($anime->imageUrl)): ?>
+                <a href="<?php echo $this->url('anime',
+                    array('action'=>'details', 'id' => $anime->id));?>" class="thumbnail">
+                    <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" alt="<?php echo $anime->title; ?>" class="img-rounded"/>
+                    <p class="title-crop"><?php echo $this->escapeHtml($anime->title);?></p>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo $this->url('anime',
+                    array('action'=>'details', 'id' => $anime->id));?>" class="thumbnail">
+                    <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>" class="img-rounded"/>
+                    <p class="title-crop"><?php echo $this->escapeHtml($anime->title);?></p>
+                </a>
+            <?php endif ?>
+        </div>
+    <?php endforeach; ?>
+</div>
