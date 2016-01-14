@@ -42,3 +42,24 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
+
+.title-crop {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+#synopsis {
+    text-align: justify;
+}
+
+.thumbnail {
+    max-height: 360px;
+    min-width: 50%;
+}
+
+.img-responsive {
+    max-height: 360px;
+    min-width: 50%;
+}

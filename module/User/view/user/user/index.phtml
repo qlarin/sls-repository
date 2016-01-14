@@ -17,5 +17,6 @@ $this->headScript()->appendScript(
     <hr />
     <a href="<?php echo $this->url('user',
         array('action' => 'edit', 'id' => $user->id));?>">Edit your data</a>
+    <a href="<?php echo $this->url('list', array('action' => 'anime', 'id' => $user->id));?>">Manage your list</a>
 </div>
 <hr />

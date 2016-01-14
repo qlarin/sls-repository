@@ -13,6 +13,7 @@ class Anime
     public $synopsis;
     public $tags;
     public $avgRating;
+    public $countRating;
     public $prequel;
     public $sequel;
     public $spinoff;
@@ -26,6 +27,7 @@ class Anime
         $this->synopsis = (!empty($data['synopsis'])) ? $data['synopsis'] : null;
         $this->tags = (!empty($data['tags'])) ? $data['tags'] : null;
         $this->avgRating = (!empty($data['avgRating'])) ? $data['avgRating'] : null;
+        $this->countRating = (!empty($data['countRating'])) ? $data['countRating'] : null;
         $this->prequel = (!empty($data['prequel'])) ? $data['prequel'] : null;
         $this->sequel = (!empty($data['sequel'])) ? $data['sequel'] : null;
         $this->spinoff = (!empty($data['spinoff'])) ? $data['spinoff'] : null;

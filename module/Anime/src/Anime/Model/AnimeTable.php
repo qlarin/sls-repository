@@ -5,6 +5,7 @@
 
 namespace Anime\Model;
 
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
 class AnimeTable
@@ -35,12 +36,46 @@ class AnimeTable
         return $row;
     }
 
+    public function getRecentlyAddedAnimes()
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) {
+           $select->order('id DESC')->limit(4);
+        });
+        return $rowset;
+    }
+
+    public function getTopRatedAnimes()
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) {
+            $select->where('avgRating > 0');
+            $select->order('avgRating DESC')->limit(4);
+        });
+        return $rowset;
+    }
+
+    public function getPreviousAnime($id)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($id) {
+            $select->where('id = (select max(id) from anime where id < ' . $id . ')');
+        });
+        return $rowset->current();
+    }
+
+    public function getNextAnime($id)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($id) {
+            $select->where('id = (select min(id) from anime where id > ' . $id . ')');
+        });
+        return $rowset->current();
+    }
+
     public function saveAnime(Anime $anime)
     {
         $data = array(
             'title' => $anime->title,
             'synopsis' => $anime->synopsis,
             'tags' => $anime->tags,
+            'countRating' => $anime->countRating,
             'avgRating' => $anime->avgRating,
             'prequel' => $anime->prequel,
             'sequel' => $anime->sequel,
@@ -80,5 +115,4 @@ class AnimeTable
         }
         return $row;
     }
-
 }

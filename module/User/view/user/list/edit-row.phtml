@@ -1,0 +1,66 @@
+<?php
+$this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
+
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript(
+    '$(function() {
+ 	$("a.ui-button").button();
+  });', 'text/javascript');
+
+?>
+<?php if ($this->error): ?>
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong class="error">
+            <?php echo $this->error ?>
+        </strong>
+    </div>
+<?php endif ?>
+<div class="container col-md-12">
+    <h3>Edit anime</h3>
+    <section>
+        <?php
+        $form = $this->form;
+        $form->prepare();
+        $form->setAttribute('action', $this->url('list', array('action' => 'editRowProcess')));
+        $form->setAttribute('method', 'post');
+        echo $this->form()->openTag($form);
+        ?>
+        <dl class="zend_form">
+            <?php echo $this->formHidden($form->get('id')); ?>
+            <?php echo $this->formHidden($form->get('animeId')); ?>
+            <?php echo $this->formHidden($form->get('userId')); ?>
+            <dd><?php
+                echo $this->formLabel($form->get('status'));
+                echo $this->formElement($form->get('status'));
+                echo $this->formElementErrors($form->get('status'));
+                ?></dd>
+
+            <dd><?php
+                echo $this->formLabel($form->get('rating'));
+                echo $this->formElement($form->get('rating'));
+                echo $this->formElementErrors($form->get('rating'));
+                ?></dd>
+
+            <dd><?php
+                echo $this->formLabel($form->get('episode'));
+                echo $this->formElement($form->get('episode'));
+                echo $this->formElementErrors($form->get('episode'));
+                ?></dd>
+
+            <dd><?php
+                echo $this->formElement($form->get('csrf'));
+                echo $this->formElementErrors($form->get('csrf'));
+                ?></dd></br>
+
+            <dd><?php
+                echo $this->formElement($form->get('submit'));
+                echo $this->formElementErrors($form->get('submit'));
+                ?></dd>
+        </dl>
+        <?php echo $this->form()->closeTag() ?>
+    </section>
+</div>
+

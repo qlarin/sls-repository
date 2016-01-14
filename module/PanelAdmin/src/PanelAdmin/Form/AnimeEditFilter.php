@@ -123,5 +123,31 @@ class AnimeEditFilter extends InputFilter
             'validators' => array(
             ),
         ));
+
+        $this->add(array(
+            'name' => 'imageUrl',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'filerenameupload',
+                    'options' => array(
+                        'target' => 'public/img/anime/',
+                        'use_upload_name' => true,
+                        'randomize' => true,
+                    ),
+                ),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                ),
+                array(
+                    'name' => 'fileextension',
+                    'options' => array(
+                        'extension' => array('jpg', 'jpeg', 'png', 'svg'),
+                    ),
+                ),
+            ),
+        ));
     }
 }
