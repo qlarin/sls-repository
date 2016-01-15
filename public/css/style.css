@@ -63,3 +63,8 @@ div.container a.brand {
     max-height: 360px;
     min-width: 50%;
 }
+
+.is-admin {
+    color: #337ab7;
+
+}

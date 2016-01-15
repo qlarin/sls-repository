@@ -6,7 +6,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Anime\Controller\Anime' => 'Anime\Controller\AnimeController',
-            'Anime\Controller\Comment' => 'Anime\Controller\CommentController',
         ),
     ),
     'router' => array(

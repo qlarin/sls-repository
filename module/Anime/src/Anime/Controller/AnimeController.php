@@ -5,6 +5,7 @@
 
 namespace Anime\Controller;
 
+use Anime\Model\Comment;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
@@ -38,11 +39,18 @@ class AnimeController extends AbstractActionController
         $this->layout()->setVariable('user', $user);
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
         $anime = $animeTable->getAnime($this->params()->fromRoute('id'));
+        $commentTable = $this->getServiceLocator()->get('CommentTable');
+        $comments = $commentTable->getCommentsByAnimeId($this->params()->fromRoute('id'));
+        $error = $this->getEvent()->getRouteMatch()->getParam('error');
         $form = $this->getServiceLocator()->get('AddAnimeToListForm');
+        $commentForm = $this->getServiceLocator()->get('AddCommentForm');
         return new ViewModel(array(
             'user' => $user,
             'anime' => $anime,
+            'comments' => $comments,
             'form' => $form,
+            'commentForm' => $commentForm,
+            'error' => $error,
             'prev' => $animeTable->getPreviousAnime($anime->id),
             'next' => $animeTable->getNextAnime($anime->id),
         ));
@@ -57,49 +65,57 @@ class AnimeController extends AbstractActionController
         $post = $this->request->getPost();
         $form = $this->getServiceLocator()->get('AddAnimeToListForm');
         $form->setData($post);
-        $user = $this->getLoggedUser();
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
         if (!$form->isValid()) {
-            $model = new ViewModel(array(
-                'error' => "There were one or more issues with your submission.",
-                'form' => $form,
-                'user' => $user,
-                'anime' => $animeTable->getAnime($form->getData()['animeId']),
-                'prev' => $animeTable->getPreviousAnime($form->getData()['animeId']),
-                'next' => $animeTable->getNextAnime($form->getData()['animeId']),
+            return $this->forward()->dispatch('Anime\Controller\Anime', array(
+                'action' => 'details',
+                'error' => 'There were one or more issues with your submission.',
+                'id' => $form->getData()['animeId']
             ));
-            $model->setTemplate('anime/anime/details');
-            return $model;
         }
         $data = $form->getData();
         if ($this->checkIfExceededMaxEpisodes($data, $animeTable)) {
-            $model = new ViewModel(array(
-                'error' => 'You cannot set more episodes than anime has',
-                'form' => $form,
-                'user' => $user,
-                'anime' => $animeTable->getAnime($data['animeId']),
-                'prev' => $animeTable->getPreviousAnime($data['animeId']),
-                'next' => $animeTable->getNextAnime($data['animeId']),
+            return $this->forward()->dispatch('Anime\Controller\Anime', array(
+                'action' => 'details',
+                'error' => 'You cannot set more episodes than anime has.',
+                'id' => $data['animeId']
             ));
-            $model->setTemplate('anime/anime/details');
-            return $model;
         }
         if ($this->checkIfNotExist($data)) {
             $this->addRowToList($form->getData());
             $this->checkRating($data);
             return $this->redirect()->toRoute('user');
         } else {
-            $model = new ViewModel(array(
-                'error' => 'You already added that anime to your list',
-                'form' => $form,
-                'user' => $user,
-                'anime' => $animeTable->getAnime($data['animeId']),
-                'prev' => $animeTable->getPreviousAnime($data['animeId']),
-                'next' => $animeTable->getNextAnime($data['animeId']),
+            return $this->forward()->dispatch('Anime\Controller\Anime', array(
+                'action' => 'details',
+                'error' => 'You already added that anime to your list.',
+                'id' => $data['animeId']
             ));
-            $model->setTemplate('anime/anime/details');
-            return $model;
         }
+    }
+
+    public function addCommentProcessAction()
+    {
+        $this->layout('layout/anime_layout');
+        if (!$this->request->isPost()) {
+            return $this->redirect()->toRoute('anime');
+        }
+        $post = $this->request->getPost();
+        $form = $this->getServiceLocator()->get('AddCommentForm');
+        $form->setData($post);
+        if (!$form->isValid()) {
+            return $this->forward()->dispatch('Anime\Controller\Anime', array(
+                'action' => 'details',
+                'error' => 'There were one or more issues with your submission.',
+                'id' => $form->getData()['animeId']
+            ));
+        }
+        $data = $form->getData();
+        $this->addComment($data);
+        return $this->redirect()->toRoute('anime', array(
+            'action' => 'details',
+            'id' => $data['animeId']
+        ));
     }
 
     private function checkIfExceededMaxEpisodes(array $data, $animeTable)
@@ -144,5 +160,13 @@ class AnimeController extends AbstractActionController
         $animeTable->saveAnime($anime);
     }
 
+    protected function addComment(array $data)
+    {
+        $comment = new Comment();
+        $comment->exchangeArray($data);
+        $commentTable = $this->getServiceLocator()->get('CommentTable');
+        $commentTable->saveComment($comment);
+        return true;
+    }
 
 }

@@ -10,102 +10,206 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row spec center-block">
+                <div class="col-xs-12">
+                    <div class="col-md-3">
+                        <?php if (empty($anime->imageUrl)): ?>
+                            <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
+                        <?php else: ?>
+                            <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
+                        <?php endif ?>
+                    </div>
+                    <div class="col-md-9">
+                        <h2 class="title-crop"><?php echo $this->escapeHtml($anime->title);?></h2>
+                        <div id="synopsis"><p><?php echo $this->escapeHtml($anime->synopsis);?></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <?php if ($this->error): ?>
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong class="error">
+                <?php echo $this->error ?>
+            </strong>
+        </div>
+    <?php endif ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+    <div class="container col-md-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Anime Data</a></li>
+            <li><a data-toggle="tab" href="#menu1">Add to list</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3>Anime Data</h3>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Title</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->title); ?></div>
+                </div>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Tags</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->tags); ?></div>
+                </div>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Prequel</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->prequel); ?></div>
+                </div>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Sequel</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->sequel); ?></div>
+                </div>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Spinoff</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->spinoff); ?></div>
+                </div>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Average rating</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->avgRating); ?></div>
+                </div>
+                <div class="row spec center-block">
+                    <div class="col-xs-4">Episodes</div>
+                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->episodes); ?></div>
+                </div>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <?php if (!empty($user)): ?>
+                    <h3>Add anime</h3>
+                    <section>
+                        <?php
+                        $form = $this->form;
+                        $form->prepare();
+                        $form->setAttribute('action', $this->url('anime', array('action' => 'addToListProcess')));
+                        $form->setAttribute('method', 'post');
+                        echo $this->form()->openTag($form);
+                        ?>
+                        <dl class="zend_form">
+                            <?php echo $this->formHidden($form->get('id')); ?>
+                            <?php echo $this->formHidden($form->get('animeId')->setValue($anime->id)); ?>
+                            <?php echo $this->formHidden($form->get('userId')->setValue($user->id)); ?>
+                            <dd><?php
+                                echo $this->formLabel($form->get('status'));
+                                echo $this->formElement($form->get('status'));
+                                echo $this->formElementErrors($form->get('status'));
+                                ?></dd>
 
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row spec center-block">
-            <div class="col-xs-12">
-                <div class="col-md-3">
-                    <?php if (empty($anime->imageUrl)): ?>
-                        <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
-                    <?php else: ?>
-                        <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
-                    <?php endif ?>
-                </div>
-                <div class="col-md-9">
-                    <h2 class="title-crop"><?php echo $this->escapeHtml($anime->title);?></h2>
-                    <div id="synopsis"><p><?php echo $this->escapeHtml($anime->synopsis);?></p></div>
-                </div>
+                            <dd><?php
+                                echo $this->formLabel($form->get('rating'));
+                                echo $this->formElement($form->get('rating'));
+                                echo $this->formElementErrors($form->get('rating'));
+                                ?></dd>
+
+                            <dd><?php
+                                echo $this->formLabel($form->get('episode'));
+                                echo $this->formElement($form->get('episode'));
+                                echo $this->formElementErrors($form->get('episode'));
+                                ?></dd>
+
+                            <dd><?php
+                                echo $this->formElement($form->get('csrf'));
+                                echo $this->formElementErrors($form->get('csrf'));
+                                ?></dd></br>
+
+                            <dd><?php
+                                echo $this->formElement($form->get('submit'));
+                                echo $this->formElementErrors($form->get('submit'));
+                                ?></dd>
+                        </dl>
+                        <?php echo $this->form()->closeTag() ?>
+                    </section>
+                <?php else: ?>
+                    <div class="alert alert-danger fade in">
+                        <strong class="error">
+                            You need to be logged in to add anime to your list!
+                        </strong>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
     </div>
-</div>
-<?php if ($this->error): ?>
-    <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong class="error">
-            <?php echo $this->error ?>
-        </strong>
-    </div>
-<?php endif ?>
-<div class="container col-md-12">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">Anime Data</a></li>
-        <li><a data-toggle="tab" href="#menu1">Add to list</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-            <h3>Anime Data</h3>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Title</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->title); ?></div>
-            </div>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Tags</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->tags); ?></div>
-            </div>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Prequel</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->prequel); ?></div>
-            </div>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Sequel</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->sequel); ?></div>
-            </div>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Spinoff</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->spinoff); ?></div>
-            </div>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Average rating</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->avgRating); ?></div>
-            </div>
-            <div class="row spec center-block">
-                <div class="col-xs-4">Episodes</div>
-                <div class="col-xs-8"><?php echo $this->escapeHtml($anime->episodes); ?></div>
             </div>
         </div>
-        <div id="menu1" class="tab-pane fade">
+    <div class="container col-md-12">
+        <ul class="pager">
+            <?php if (!empty($prev)): ?>
+                <li class="previous"><a href="<?php echo $this->url('anime',
+                        array('action'=>'details', 'id' => $prev->id));?>">Previous</a></li>
+            <?php else: ?>
+                <li class="previous disabled"><a href="#"">Previous</a></li>
+            <?php endif ?>
+            <?php if (!empty($next)): ?>
+                <li class="next"><a href="<?php echo $this->url('anime',
+                        array('action'=>'details', 'id' => $next->id));?>">Next</a></li>
+            <?php else: ?>
+                <li class="next disabled"><a href="#"">Next</a></li>
+            <?php endif ?>
+        </ul>
+    </div>
+    <?php if (!empty($comments)): ?>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Show comments</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <br>
+                    <?php foreach ($comments as $comment): ?>
+                        <div class="row spec center-block">
+                            <div class="col-xs-3">
+                                <div class="thumbnail">
+                                    <?php if (empty($comment->avatarUrl)): ?>
+                                        <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" class="img-responsive"/>
+                                    <?php else: ?>
+                                        <img src="<?php echo $this->basePath($comment->avatarUrl); ?>" class="img-responsive"/>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <?php if (!empty($comment->isAdmin)): ?>
+                                            <strong class="is-admin"><?php echo $this->escapeHtml($comment->username); ?></strong>
+                                        <?php else: ?>
+                                            <strong><?php echo $this->escapeHtml($comment->username); ?></strong>
+                                        <?php endif ?>
+                                    </div>
+                                    <div class="panel-body">
+                                        <?php echo $this->escapeHtml($comment->body); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
+    <br>
+    <div class="container-fluid">
             <?php if (!empty($user)): ?>
-                <h3>Add anime</h3>
                 <section>
                     <?php
-                    $form = $this->form;
-                    $form->prepare();
-                    $form->setAttribute('action', $this->url('anime', array('action' => 'addToListProcess')));
-                    $form->setAttribute('method', 'post');
-                    echo $this->form()->openTag($form);
+                    $commentForm = $this->commentForm;
+                    $commentForm->prepare();
+                    $commentForm->setAttribute('action', $this->url('anime', array('action' => 'addCommentProcess')));
+                    $commentForm->setAttribute('method', 'post');
+                    echo $this->form()->openTag($commentForm);
                     ?>
                     <dl class="zend_form">
-                        <?php echo $this->formHidden($form->get('id')); ?>
-                        <?php echo $this->formHidden($form->get('animeId')->setValue($anime->id)); ?>
-                        <?php echo $this->formHidden($form->get('userId')->setValue($user->id)); ?>
+                        <?php echo $this->formHidden($commentForm->get('id')); ?>
+                        <?php echo $this->formHidden($commentForm->get('animeId')->setValue($anime->id)); ?>
+                        <?php echo $this->formHidden($commentForm->get('authorId')->setValue($user->id)); ?>
                         <dd><?php
-                            echo $this->formLabel($form->get('status'));
-                            echo $this->formElement($form->get('status'));
-                            echo $this->formElementErrors($form->get('status'));
-                            ?></dd>
-
-                        <dd><?php
-                            echo $this->formLabel($form->get('rating'));
-                            echo $this->formElement($form->get('rating'));
-                            echo $this->formElementErrors($form->get('rating'));
-                            ?></dd>
-
-                        <dd><?php
-                            echo $this->formLabel($form->get('episode'));
-                            echo $this->formElement($form->get('episode'));
-                            echo $this->formElementErrors($form->get('episode'));
+                            echo $this->formElement($commentForm->get('body'));
+                            echo $this->formElementErrors($commentForm->get('body'));
                             ?></dd>
 
                         <dd><?php
@@ -121,31 +225,15 @@ $this->headScript()->appendScript(
                     <?php echo $this->form()->closeTag() ?>
                 </section>
             <?php else: ?>
-                <div class="alert alert-danger fade in">
-                    <strong class="error">
-                        You need to be logged in to add anime to your list!
-                    </strong>
+                <div class="panel">
+                    <div class="alert alert-info fade in">
+                        <strong>
+                            You need to be logged in to add comment!
+                        </strong>
+                    </div>
                 </div>
             <?php endif ?>
         </div>
     </div>
 </div>
-<div class="container col-md-12">
-    <ul class="pager">
-        <?php if (!empty($prev)): ?>
-        <li class="previous"><a href="<?php echo $this->url('anime',
-                array('action'=>'details', 'id' => $prev->id));?>">Previous</a></li>
-        <?php else: ?>
-        <li class="previous disabled"><a href="#"">Previous</a></li>
-        <?php endif ?>
-        <?php if (!empty($next)): ?>
-            <li class="next"><a href="<?php echo $this->url('anime',
-                    array('action'=>'details', 'id' => $next->id));?>">Next</a></li>
-        <?php else: ?>
-            <li class="next disabled"><a href="#"">Next</a></li>
-        <?php endif ?>
-    </ul>
-</div>
-
-
 
