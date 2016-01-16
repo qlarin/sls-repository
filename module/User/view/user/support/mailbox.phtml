@@ -1,0 +1,96 @@
+<?php
+
+$this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
+
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript(
+    '$(function() {
+ 	$("a.ui-button").button();
+  });', 'text/javascript');
+
+?>
+<?php if ($this->error): ?>
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong class="error">
+            <?php echo $this->error ?>
+        </strong>
+    </div>
+<?php endif ?>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="container col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Mailbox</a></li>
+                <li><a data-toggle="tab" href="#menu1">New ticket</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <h3>Mailbox</h3>
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td class="col-xs-2">rep|Author</td>
+                            <td class="col-xs-4">New topic </td>
+                            <td class="col-xs-6">Description description description</td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-2">rep|Author</td>
+                            <td class="col-xs-4">New topic </td>
+                            <td class="col-xs-6">Description description description</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <?php if (!empty($user)): ?>
+                        <h3>New ticket</h3>
+                        <section>
+                            <?php
+                            $form = $this->form;
+                            $form->prepare();
+                            $form->setAttribute('action', $this->url('support', array('action' => 'sendTicketProcess')));
+                            $form->setAttribute('method', 'post');
+                            echo $this->form()->openTag($form);
+                            ?>
+                            <dl class="zend_form">
+                                <?php echo $this->formHidden($form->get('id')); ?>
+                                <?php echo $this->formHidden($form->get('authorId')->setValue($user->id)); ?>
+                                <dd><?php
+                                    echo $this->formLabel($form->get('userId'));
+                                    echo $this->formElement($form->get('userId'));
+                                    echo $this->formElementErrors($form->get('userId'));
+                                    ?></dd>
+
+                                <dd><?php
+                                    echo $this->formLabel($form->get('topic'));
+                                    echo $this->formElement($form->get('topic'));
+                                    echo $this->formElementErrors($form->get('topic'));
+                                    ?></dd>
+
+                                <dd><?php
+                                    echo $this->formLabel($form->get('body'));
+                                    echo $this->formElement($form->get('body'));
+                                    echo $this->formElementErrors($form->get('body'));
+                                    ?></dd>
+
+                                <dd><?php
+                                    echo $this->formElement($form->get('csrf'));
+                                    echo $this->formElementErrors($form->get('csrf'));
+                                    ?></dd></br>
+
+                                <dd><?php
+                                    echo $this->formElement($form->get('submit'));
+                                    echo $this->formElementErrors($form->get('submit'));
+                                    ?></dd>
+                            </dl>
+                            <?php echo $this->form()->closeTag() ?>
+                        </section>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,7 @@ return array(
             'User\Controller\Register' => 'User\Controller\RegisterController',
             'User\Controller\User' => 'User\Controller\UserController',
             'User\Controller\List' => 'User\Controller\ListController',
+            'User\Controller\Support' => 'User\Controller\SupportController',
         ),
     ),
     'router' => array(
@@ -78,6 +79,21 @@ return array(
                     'defaults' => array(
                         'controller' => 'User\Controller\List',
                         'action' => 'anime',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'support' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/support[/:action[/:id]]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Support',
+                        'action' => 'mailbox',
                     ),
                 ),
                 'may_terminate' => true,
