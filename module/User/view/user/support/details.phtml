@@ -1,0 +1,77 @@
+<?php
+
+$this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
+
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript(
+    '$(function() {
+ 	$("a.ui-button").button();
+  });', 'text/javascript');
+
+?>
+<?php if ($this->error): ?>
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong class="error">
+            <?php echo $this->error ?>
+        </strong>
+    </div>
+<?php endif ?>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="container col-xs-12">
+            <div class="row spec center-block">
+                <h4>Message from: <?php echo $mail->username; ?></h4>
+            </div>
+            <div class="row spec center-block">
+                <h5>Topic: <?php echo $mail->topic; ?></h5>
+            </div>
+            <div class="row spec center-block">
+                <p><?php echo $mail->body; ?></p>
+            </div>
+        </div>
+    </div>
+</div>
+<?php if (!empty($user)): ?>
+    <div class="container col-xs-12">
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#reply">Reply</button>
+        <div id="reply" class="collapse">
+            <section>
+                <?php
+                $form = $this->form;
+                $form->prepare();
+                $form->setAttribute('action', $this->url('support', array('action' => 'replyProcess')));
+                $form->setAttribute('method', 'post');
+                echo $this->form()->openTag($form);
+                ?>
+                <dl class="zend_form">
+                    <?php echo $this->formHidden($form->get('id')); ?>
+                    <?php echo $this->formHidden($form->get('userId')->setValue($mail->authorId)); ?>
+                    <?php echo $this->formHidden($form->get('authorId')->setValue($user->id)); ?>
+                    <?php echo $this->formHidden($form->get('topic')->setValue($mail->topic)); ?>
+                    <?php echo $this->formHidden($form->get('oldMessageId')->setValue($mail->id)); ?>
+
+                    <dd><?php
+                        echo $this->formLabel($form->get('body'));
+                        echo $this->formElement($form->get('body'));
+                        echo $this->formElementErrors($form->get('body'));
+                        ?></dd>
+
+                    <dd><?php
+                        echo $this->formElement($form->get('csrf'));
+                        echo $this->formElementErrors($form->get('csrf'));
+                        ?></dd></br>
+
+                    <dd><?php
+                        echo $this->formElement($form->get('submit'));
+                        echo $this->formElementErrors($form->get('submit'));
+                        ?></dd>
+                </dl>
+                <?php echo $this->form()->closeTag() ?>
+            </section>
+        </div>
+    </div>
+<?php endif ?>
+<br>

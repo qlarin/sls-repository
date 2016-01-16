@@ -14,6 +14,9 @@ class Message
     public $authorId;
     public $userId;
 
+    public $username;
+    public $oldMessageId;
+
     public function exchangeArray($data)
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
@@ -22,6 +25,8 @@ class Message
         $this->authorId = (!empty($data['authorId'])) ? $data['authorId'] : null;
         $this->userId = (!empty($data['userId'])) ? $data['userId'] : null;
 
+        $this->username = (!empty($data['username'])) ? $data['username'] : null;
+        $this->oldMessageId = (!empty($data['oldMessageId'])) ? $data['oldMessageId'] : null;
     }
 
     public function getArrayCopy()

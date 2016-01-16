@@ -20,9 +20,10 @@ class MessageTable
     public function getMessage($id)
     {
         $id = (int)$id;
-        $rowset = $this->tableGateway->select(array(
-            'id' => $id,
-        ));
+        $rowset = $this->tableGateway->select(function (Select $select) use ($id) {
+            $select->join('user', 'message.authorId = user.id', array('username'));
+            $select->where('message.id = ' . $id);
+        });
         $row = $rowset->current();
         if (!$row) {
             return new \Exception("Could not find row $id");
@@ -33,6 +34,7 @@ class MessageTable
     public function getMessagesByUserId($userId)
     {
         $rowset = $this->tableGateway->select(function (Select $select) use ($userId) {
+            $select->join('user', 'message.authorId = user.id', array('username'));
             $select->where('userId = ' . $userId);
             $select->order('id DESC');
         });
@@ -52,11 +54,11 @@ class MessageTable
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            $message = $this->getComment($id);
+            $message = $this->getMessage($id);
             if ($message) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Comment id does not exist');
+                throw new \Exception('Message id does not exist');
             }
         }
     }

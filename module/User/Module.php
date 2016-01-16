@@ -139,12 +139,20 @@ class Module implements AutoloaderProviderInterface
                     return new EditAnimeOnListFilter();
                 },
                 'MessageForm' => function ($sm) {
-                    $form = new Form\MessageForm();
+                    $form = new Form\MessageForm($sm, 'New ticket');
                     $form->setInputFilter($sm->get('MessageFilter'));
                     return $form;
                 },
                 'MessageFilter' => function ($sm) {
                     return new Form\MessageFilter();
+                },
+                'ReplyForm' => function ($sm) {
+                    $form = new Form\ReplyForm();
+                    $form->setInputFilter($sm->get('ReplyFilter'));
+                    return $form;
+                },
+                'ReplyFilter' => function ($sm) {
+                    return new Form\ReplyFilter();
                 },
             ),
         );

@@ -7,23 +7,23 @@ namespace User\Form;
 
 use Zend\Form\Form;
 
-class MessageForm extends Form
+class ReplyForm extends Form
 {
-
-    public function __construct($sm, $name = null)
+    public function __construct($name = null)
     {
-        parent::__construct('New ticket');
+        parent::__construct('Reply');
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype', 'multipart/form-data');
 
-        $adminList = $sm->get('UserTable')->fetchAdmins();
-        $selectArray = array();
-        foreach ($adminList as $admin) {
-            $selectArray[$admin->id] = $admin->username;
-        }
-
         $this->add(array(
             'name' => 'id',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'oldMessageId',
             'attributes' => array(
                 'type' => 'hidden',
             ),
@@ -38,14 +38,8 @@ class MessageForm extends Form
 
         $this->add(array(
             'name' => 'userId',
-            'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
-                'class' => 'form-control',
-            ),
-            'options' => array(
-                'label' => 'To:',
-                'empty_option' => 'Please choose an admin to contact',
-                'value_options' => $selectArray,
+                'type' => 'hidden',
             ),
         ));
 
@@ -65,11 +59,7 @@ class MessageForm extends Form
         $this->add(array(
             'name' => 'topic',
             'attributes' => array(
-                'type'  => 'Text',
-                'class' => 'form-control',
-            ),
-            'options' => array(
-                'label' => 'Topic:',
+                'type' => 'hidden',
             ),
         ));
 

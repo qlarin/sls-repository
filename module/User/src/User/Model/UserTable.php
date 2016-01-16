@@ -3,6 +3,7 @@
 
 namespace User\Model;
 
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
 class UserTable
@@ -95,6 +96,14 @@ class UserTable
             return false;
         }
         return $row;
+    }
+
+    public function fetchAdmins()
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) {
+            $select->where('isAdmin = ' . true);
+        });
+        return $rowset;
     }
 
 }
