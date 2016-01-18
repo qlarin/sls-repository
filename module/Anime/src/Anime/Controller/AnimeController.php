@@ -19,8 +19,15 @@ class AnimeController extends AbstractActionController
         $user = $this->getLoggedUser();
         $this->layout()->setVariable('user', $user);
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
+        $form = $this->getServiceLocator()->get('AnimeSearchForm');
+        $error = $this->getEvent()->getRouteMatch()->getParam('error');
+        $find = $this->getEvent()->getRouteMatch()->getParam('find');
+        $find =  $animeTable->searchAnimes(strval($find));
         return new ViewModel(array(
             'user' => $user,
+            'form' => $form,
+            'error' => $error,
+            'results' => $find,
             'animes' => $animeTable->getRecentlyAddedAnimes(),
             'topRatedAnimes' => $animeTable->getTopRatedAnimes(),
         ));
@@ -30,6 +37,28 @@ class AnimeController extends AbstractActionController
     {
         $user = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
         return $user;
+    }
+
+    public function searchProcessAction()
+    {
+        $this->layout('layout/anime_layout');
+        if (!$this->request->isPost()) {
+            return $this->redirect()->toRoute('user');
+        }
+        $post = $this->request->getPost();
+        $form = $this->getServiceLocator()->get('AnimeSearchForm');
+        $form->setData($post);
+        if (!$form->isValid()) {
+            return $this->forward()->dispatch('Anime\Controller\Anime', array(
+                'action' => 'index',
+                'error' => 'You cannot search empty value',
+            ));
+        }
+        $data = $form->getData();
+        return $this->forward()->dispatch('Anime\Controller\Anime', array(
+            'action' => 'index',
+            'find' => $data['input'],
+        ));
     }
 
     public function detailsAction()

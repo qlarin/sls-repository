@@ -120,6 +120,14 @@ class Module implements AutoloaderProviderInterface
                 'AddCommentFilter' => function ($sm) {
                     return new Form\AddCommentFilter();
                 },
+                'AnimeSearchForm' => function ($sm) {
+                    $form = new Form\AnimeSearchForm();
+                    $form->setInputFilter($sm->get('AnimeSearchFilter'));
+                    return $form;
+                },
+                'AnimeSearchFilter' => function ($sm) {
+                    return new Form\AnimeSearchFilter();
+                },
             ),
         );
     }

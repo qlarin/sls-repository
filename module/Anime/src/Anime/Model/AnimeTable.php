@@ -5,8 +5,11 @@
 
 namespace Anime\Model;
 
-use Zend\Db\Sql\Select;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 class AnimeTable
 {
@@ -114,5 +117,26 @@ class AnimeTable
             return false;
         }
         return $row;
+    }
+
+    public function searchAnimes($input, $paginated = false)
+    {
+        if ($paginated) {
+            $select = new Select('anime');
+            $resultSetPrototype = new ResultSet();
+            $resultSetPrototype->setArrayObjectPrototype(new Anime());
+            $paginatorAdapter = new DbSelect(
+                $select->where("title LIKE '%$input%' COLLATE utf8_general_ci"),
+                $this->tableGateway->getAdapter(),
+                $resultSetPrototype
+            );
+            $paginator = new Paginator($paginatorAdapter);
+            return $paginator;
+        }
+        $resultSet = $this->tableGateway->select(function (Select $select) use ($input) {
+            $select->where("title LIKE '%$input%' COLLATE utf8_general_ci");
+            $select->limit(10);
+        });
+        return $resultSet;
     }
 }

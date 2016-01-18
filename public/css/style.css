@@ -66,5 +66,8 @@ div.container a.brand {
 
 .is-admin {
     color: #337ab7;
+}
 
+.img-icon {
+    width: 50px;
 }
