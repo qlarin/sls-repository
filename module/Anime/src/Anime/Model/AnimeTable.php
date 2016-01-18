@@ -20,8 +20,20 @@ class AnimeTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll($paginated = false)
     {
+        if ($paginated) {
+            $select = new Select('anime');
+            $resultSetPrototype = new ResultSet();
+            $resultSetPrototype->setArrayObjectPrototype(new Anime());
+            $paginatorAdapter = new DbSelect(
+                $select,
+                $this->tableGateway->getAdapter(),
+                $resultSetPrototype
+            );
+            $paginator = new Paginator($paginatorAdapter);
+            return $paginator;
+        }
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
@@ -119,20 +131,8 @@ class AnimeTable
         return $row;
     }
 
-    public function searchAnimes($input, $paginated = false)
+    public function searchAnimes($input)
     {
-        if ($paginated) {
-            $select = new Select('anime');
-            $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new Anime());
-            $paginatorAdapter = new DbSelect(
-                $select->where("title LIKE '%$input%' COLLATE utf8_general_ci"),
-                $this->tableGateway->getAdapter(),
-                $resultSetPrototype
-            );
-            $paginator = new Paginator($paginatorAdapter);
-            return $paginator;
-        }
         $resultSet = $this->tableGateway->select(function (Select $select) use ($input) {
             $select->where("title LIKE '%$input%' COLLATE utf8_general_ci");
             $select->limit(10);

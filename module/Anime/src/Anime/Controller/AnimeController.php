@@ -22,7 +22,9 @@ class AnimeController extends AbstractActionController
         $form = $this->getServiceLocator()->get('AnimeSearchForm');
         $error = $this->getEvent()->getRouteMatch()->getParam('error');
         $find = $this->getEvent()->getRouteMatch()->getParam('find');
-        $find =  $animeTable->searchAnimes(strval($find));
+        if (!empty($find)) {
+            $find =  $animeTable->searchAnimes(strval($find));
+        }
         return new ViewModel(array(
             'user' => $user,
             'form' => $form,
