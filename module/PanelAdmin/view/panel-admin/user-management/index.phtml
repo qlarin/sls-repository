@@ -38,3 +38,13 @@ $this->headScript()->appendScript(
         <?php endforeach; ?>
     </table>
 </div>
+<?php
+echo $this->paginationControl(
+    $this->users,
+    'sliding',
+    'partial/paginator.phtml',
+    array(
+        'route' => 'admin/manage-users',
+    )
+);
+?>

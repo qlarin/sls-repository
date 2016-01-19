@@ -21,9 +21,13 @@ class UserManagementController extends AbstractActionController
         }
         $this->layout()->setVariable('user', $user);
         $userTable = $this->getServiceLocator()->get('UserTable');
+        $results = $userTable->fetchAll(true);
+        $results->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+        $results->setItemCountPerPage(10);
+
         $viewModel  = new ViewModel(array(
             'admin' => $user,
-            'users' => $userTable->fetchAll()
+            'users' => $results
         ));
         return $viewModel;
     }

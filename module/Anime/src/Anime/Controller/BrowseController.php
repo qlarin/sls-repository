@@ -9,7 +9,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 
-class ListController extends AbstractActionController
+class BrowseController extends AbstractActionController
 {
     private function getLoggedUser()
     {
@@ -17,7 +17,7 @@ class ListController extends AbstractActionController
         return $user;
     }
 
-    public function listAction()
+    public function browseAction()
     {
         $this->layout('layout/anime_layout');
         $user = $this->getLoggedUser();

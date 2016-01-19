@@ -3,8 +3,11 @@
 
 namespace User\Model;
 
-use Zend\Db\Sql\Select;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 class UserTable
 {
@@ -15,8 +18,20 @@ class UserTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll($paginated = false)
     {
+        if ($paginated) {
+            $select = new Select('user');
+            $resultSetPrototype = new ResultSet();
+            $resultSetPrototype->setArrayObjectPrototype(new User());
+            $paginatorAdapter = new DbSelect(
+                $select,
+                $this->tableGateway->getAdapter(),
+                $resultSetPrototype
+            );
+            $paginator = new Paginator($paginatorAdapter);
+            return $paginator;
+        }
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }

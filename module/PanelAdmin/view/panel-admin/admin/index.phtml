@@ -20,7 +20,7 @@ $this->headScript()->appendScript(
     <a href="<?php echo $this->url('admin/manage-anime',
         array('action' => 'index'));?>">Manage anime list</a>
     <br />
-    <a href="<?php echo $this->url('admin/messages',
-        array('action' => 'index'));?>">Users messages</a>
+    <a href="<?php echo $this->url('support',
+        array('action' => 'mailbox', 'id' => $user->id));?>">Users messages</a>
 </div>
 <hr />

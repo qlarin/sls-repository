@@ -6,7 +6,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Anime\Controller\Anime' => 'Anime\Controller\AnimeController',
-            'Anime\Controller\List' => 'Anime\Controller\ListController',
+            'Anime\Controller\Browse' => 'Anime\Controller\BrowseController',
         ),
     ),
     'router' => array(
@@ -26,16 +26,16 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
-            'list' => array(
+            'browse' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/list[/:id]',
+                    'route' => '/browse[/:id]',
                     'constraints' => array(
                         'id' => '[a-zA-Z0-9_-]*'
                     ),
                     'defaults' => array(
-                        'controller' => 'Anime\Controller\List',
-                        'action' => 'list',
+                        'controller' => 'Anime\Controller\Browse',
+                        'action' => 'browse',
                     ),
                 ),
                 'may_terminate' => true,
