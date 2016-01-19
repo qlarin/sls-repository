@@ -11,12 +11,20 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
-<h1>Welcome</h1>
-<div>
-    <h4><?php echo $this->escapeHtml($user->username); ?></h4>
-    <hr />
-    <a href="<?php echo $this->url('user',
-        array('action' => 'edit', 'id' => $user->id));?>">Edit your data</a>
-    <a href="<?php echo $this->url('list', array('action' => 'anime', 'id' => $user->id));?>">Manage your list</a>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3>Welcome</h3></div>
+    <div class="panel-body">
+        <div class="col-xs-2">
+            <img src="<?php echo $this->basePath($user->avatarUrl); ?>" class="img-thumbnail"/>
+            <h4>Hello, <?php echo $this->escapeHtml($user->username); ?></h4>
+            <hr />
+        </div>
+        <div class="col-xs-10">
+            <div class="list-group">
+                <a href="<?php echo $this->url('user',
+                    array('action' => 'edit', 'id' => $user->id));?>" class="list-group-item">Edit your data</a>
+                <a href="<?php echo $this->url('list', array('action' => 'anime', 'id' => $user->id));?>" class="list-group-item">Manage your list</a>
+            </div>
+        </div>
+    </div>
 </div>
-<hr />

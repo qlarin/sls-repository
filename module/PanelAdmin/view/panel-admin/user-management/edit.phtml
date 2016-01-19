@@ -16,6 +16,7 @@
     ?>
     <dl class="zend_form">
         <?php echo $this->formHidden($form->get('id')); ?>
+        <?php echo $this->formHidden($form->get('avatarUrl')); ?>
         <dd><?php
             echo $this->formElement($form->get('name'));
             echo $this->formElementErrors($form->get('name'));

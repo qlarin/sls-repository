@@ -74,6 +74,27 @@ class UserEditForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'avatarUrl',
+            'type' => 'Zend\Form\Element\File',
+            'attributes' => array(
+                'id' => 'avatarUrl',
+            ),
+            'options' => array(
+                'label' => 'Image Upload',
+                'label_attributes' => array (
+                    'class' => 'col-sm-3 text-right',
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'isAdmin',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
