@@ -10,6 +10,10 @@ use User\Model\ListRow;
 use User\Model\ListRowTable;
 use Anime\Model\Anime;
 use Anime\Model\AnimeTable;
+use Anime\Model\Comment;
+use Anime\Model\CommentTable;
+use User\Model\Message;
+use User\Model\MessageTable;
 use Anime\Form\EditAnimeOnListFilter;
 use Anime\Form\EditAnimeOnListForm;
 use Zend\Db\ResultSet\ResultSet;
@@ -93,6 +97,28 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Anime());
                     return new TableGateway('anime', $dbAdapter, null, $resultSetPrototype);
                 },
+                'MessageTable' =>  function($sm) {
+                    $tableGateway = $sm->get('MessageTableGateway');
+                    $table = new MessageTable($tableGateway);
+                    return $table;
+                },
+                'MessageTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Message());
+                    return new TableGateway('message', $dbAdapter, null, $resultSetPrototype);
+                },
+                'CommentTable' =>  function($sm) {
+                    $tableGateway = $sm->get('CommentTableGateway');
+                    $table = new CommentTable($tableGateway);
+                    return $table;
+                },
+                'CommentTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Comment());
+                    return new TableGateway('comment', $dbAdapter, null, $resultSetPrototype);
+                },
                 'RegisterForm' => function ($sm) {
                     $form = new Form\RegisterForm();
                     $form->setInputFilter($sm->get('RegisterFilter'));
@@ -124,6 +150,22 @@ class Module implements AutoloaderProviderInterface
                 },
                 'EditAnimeOnListFilter' => function ($sm) {
                     return new EditAnimeOnListFilter();
+                },
+                'MessageForm' => function ($sm) {
+                    $form = new Form\MessageForm($sm, 'New ticket');
+                    $form->setInputFilter($sm->get('MessageFilter'));
+                    return $form;
+                },
+                'MessageFilter' => function ($sm) {
+                    return new Form\MessageFilter();
+                },
+                'ReplyForm' => function ($sm) {
+                    $form = new Form\ReplyForm();
+                    $form->setInputFilter($sm->get('ReplyFilter'));
+                    return $form;
+                },
+                'ReplyFilter' => function ($sm) {
+                    return new Form\ReplyFilter();
                 },
             ),
         );

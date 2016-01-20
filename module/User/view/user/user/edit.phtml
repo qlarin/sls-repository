@@ -16,6 +16,7 @@
     ?>
     <dl class="zend_form">
         <?php echo $this->formHidden($form->get('id')); ?>
+        <?php echo $this->formHidden($form->get('isAdmin')); ?>
         <dd><?php
             echo $this->formElement($form->get('name'));
             echo $this->formElementErrors($form->get('name'));
@@ -34,6 +35,13 @@
         <dd><?php
             echo $this->formElement($form->get('location'));
             echo $this->formElementErrors($form->get('location'));
+            ?></dd>
+
+        <img src="<?php echo $this->basePath($user->avatarUrl); ?>"/>
+        <dd><?php
+            echo $this->formLabel($form->get('avatarUrl'));
+            echo $this->formFile($form->get('avatarUrl'));
+            echo $this->formElementErrors($form->get('avatarUrl'));
             ?></dd>
 
         <dd><?php

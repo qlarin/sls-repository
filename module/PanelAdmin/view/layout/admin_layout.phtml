@@ -43,6 +43,8 @@
                 <?php if (!$this->user): ?>
                     <li><a href="<?php echo $this->url('login') ?>">&nbsp;<?php echo $this->translate('Login') ?></a></li>
                     <li><a href="<?php echo $this->url('register') ?>">&nbsp;<?php echo $this->translate('Sign-up') ?></a></li>
+                <?php else: ?>
+                    <li><a href="<?php echo $this->url('support', array('action'=>'mailbox', 'id'=>$this->user->id)); ?>">&nbsp;<?php echo $this->translate('Support') ?></a></li>
                 <?php endif ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">

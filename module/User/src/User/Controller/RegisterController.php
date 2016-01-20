@@ -87,6 +87,7 @@ class RegisterController extends AbstractActionController
         $user = new User();
         $user->exchangeArray($data);
         $user->setPassword($data['password']);
+        $user->setRegisterDate();
         $userTable = $this->getServiceLocator()->get('UserTable');
         $userTable->saveUser($user);
         return true;

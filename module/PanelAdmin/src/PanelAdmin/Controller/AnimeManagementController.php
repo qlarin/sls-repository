@@ -22,8 +22,12 @@ class AnimeManagementController extends AbstractActionController
         }
         $this->layout()->setVariable('user', $user);
         $animeTable = $this->getServiceLocator()->get('AnimeTable');
+        $results = $animeTable->fetchAll(true);
+        $results->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+        $results->setItemCountPerPage(10);
+
         $viewModel  = new ViewModel(array(
-            'animes' => $animeTable->fetchAll()
+            'animes' => $results
         ));
         return $viewModel;
     }

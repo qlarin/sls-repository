@@ -22,10 +22,10 @@ class User
         $this->password = md5($clearPassword);
     }
 
-    public function __construct()
+    public function setRegisterDate()
     {
         $date = new \DateTime();
-        $this->dor = $date->format('Y-m-d H:i:s');
+        $this->dor = $date->format('Y-m-d');
     }
 
     public function exchangeArray($data)

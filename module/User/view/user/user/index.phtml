@@ -11,12 +11,43 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
-<h1>Welcome</h1>
-<div>
-    <h4><?php echo $this->escapeHtml($user->username); ?></h4>
-    <hr />
-    <a href="<?php echo $this->url('user',
-        array('action' => 'edit', 'id' => $user->id));?>">Edit your data</a>
-    <a href="<?php echo $this->url('list', array('action' => 'anime', 'id' => $user->id));?>">Manage your list</a>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3><?php echo $this->escapeHtml($user->username); ?>'s Profile</h3></div>
+    <div class="panel-body">
+        <div class="col-xs-3">
+            <img src="<?php echo $this->basePath($user->avatarUrl); ?>" class="img-thumbnail"/>
+            <hr />
+            <table class="table table-striped">
+                <tbody>
+                <?php foreach ($activity['infos'] as $info => $count): ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($info); ?></td>
+                    <td>&nbsp;</td>
+                    <td><span class="badge"><?php echo $this->escapeHtml($count); ?></span></td>
+                </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-8">
+            <div class="list-group">
+                <a href="<?php echo $this->url('user',
+                    array('action' => 'edit', 'id' => $user->id));?>" class="list-group-item">Edit your data</a>
+                <a href="<?php echo $this->url('list', array('action' => 'anime', 'id' => $user->id));?>" class="list-group-item">Manage your list</a>
+            </div>
+            <?php if (!empty($activity['comments'])): ?>
+            <h5 class="panel-title"><b>Your last comments</b></h5>
+            <div class="list-group">
+                <?php foreach ($activity['comments'] as $comment): ?>
+                    <div class="list-group-item">
+                        <blockquote>
+                            <p><?php echo $this->escapeHtml($comment['body']); ?></p></p>
+                            <small>in <cite><?php echo $this->escapeHtml($comment['title']); ?></cite></small>
+                        </blockquote>
+                    </div>
+                <?php endforeach ?>
+            </div>
+            <?php endif ?>
+        </div>
+    </div>
 </div>
-<hr />

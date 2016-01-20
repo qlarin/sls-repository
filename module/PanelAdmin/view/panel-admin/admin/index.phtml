@@ -10,17 +10,22 @@ $this->headScript()->appendScript(
   });', 'text/javascript');
 
 ?>
-<h1>Welcome</h1>
-<div>
-    <h4><?php echo $this->escapeHtml($user->username); ?></h4>
-    <hr />
-    <a href="<?php echo $this->url('admin/manage-users',
-        array('action' => 'index'));?>">Manage users</a>
-    <br />
-    <a href="<?php echo $this->url('admin/manage-anime',
-        array('action' => 'index'));?>">Manage anime list</a>
-    <br />
-    <a href="<?php echo $this->url('admin/messages',
-        array('action' => 'index'));?>">Users messages</a>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3>Admin Panel</h3></div>
+    <div class="panel-body">
+        <div class="col-xs-2">
+            <img src="<?php echo $this->basePath($user->avatarUrl); ?>" class="img-thumbnail"/>
+            <h4>Hello, <?php echo $this->escapeHtml($user->username); ?></h4>
+        </div>
+        <div class="col-xs-10">
+            <div class="list-group">
+                <a href="<?php echo $this->url('admin/manage-users',
+                    array('action' => 'index'));?>" class="list-group-item">Manage users</a>
+                <a href="<?php echo $this->url('admin/manage-anime',
+                    array('action' => 'index'));?>" class="list-group-item">Manage anime list</a>
+                <a href="<?php echo $this->url('support',
+                    array('action' => 'mailbox', 'id' => $user->id));?>" class="list-group-item">Users messages</a>
+            </div>
+        </div>
+    </div>
 </div>
-<hr />

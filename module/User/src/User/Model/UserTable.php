@@ -3,7 +3,11 @@
 
 namespace User\Model;
 
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 class UserTable
 {
@@ -14,8 +18,20 @@ class UserTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll($paginated = false)
     {
+        if ($paginated) {
+            $select = new Select('user');
+            $resultSetPrototype = new ResultSet();
+            $resultSetPrototype->setArrayObjectPrototype(new User());
+            $paginatorAdapter = new DbSelect(
+                $select,
+                $this->tableGateway->getAdapter(),
+                $resultSetPrototype
+            );
+            $paginator = new Paginator($paginatorAdapter);
+            return $paginator;
+        }
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
@@ -57,6 +73,9 @@ class UserTable
                 if (empty($data['password'])) {
                     unset($data['password']);
                 }
+                if (empty($data['dor'])) {
+                    unset($data['dor']);
+                }
                 $data['username'] = $user->username;
                 $data['email'] = $user->email;
                 $this->tableGateway->update($data, array('id' => $id));
@@ -95,6 +114,14 @@ class UserTable
             return false;
         }
         return $row;
+    }
+
+    public function fetchAdmins()
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) {
+            $select->where('isAdmin = ' . true);
+        });
+        return $rowset;
     }
 
 }

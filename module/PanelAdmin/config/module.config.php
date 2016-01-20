@@ -8,7 +8,6 @@ return array(
             'PanelAdmin\Controller\Admin' => 'PanelAdmin\Controller\AdminController',
             'PanelAdmin\Controller\UserManagement' => 'PanelAdmin\Controller\UserManagementController',
             'PanelAdmin\Controller\AnimeManagement' => 'PanelAdmin\Controller\AnimeManagementController',
-            'PanelAdmin\Controller\Messages' => 'PanelAdmin\Controller\MessagesController',
         ),
     ),
     'router' => array(
@@ -51,21 +50,6 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'PanelAdmin\Controller\AnimeManagement',
-                                'action' => 'index',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'messages' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/messages[/:action[/:id]]',
-                            'constraints' => array(
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'PanelAdmin\Controller\Messages',
                                 'action' => 'index',
                             ),
                         ),

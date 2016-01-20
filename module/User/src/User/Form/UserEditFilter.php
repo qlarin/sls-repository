@@ -96,5 +96,31 @@ class UserEditFilter extends InputFilter
                 ),
             ),
         ));
+
+        $this->add(array(
+            'name' => 'avatarUrl',
+            'required' => false,
+            'filters' => array(
+                array(
+                    'name' => 'filerenameupload',
+                    'options' => array(
+                        'target' => 'public/img/user/',
+                        'use_upload_name' => true,
+                        'randomize' => true,
+                    ),
+                ),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'NotEmpty',
+                ),
+                array(
+                    'name' => 'fileextension',
+                    'options' => array(
+                        'extension' => array('jpg', 'jpeg', 'png', 'svg'),
+                    ),
+                ),
+            ),
+        ));
     }
 }

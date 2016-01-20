@@ -10,6 +10,8 @@ use User\Model\ListRow;
 use User\Model\ListRowTable;
 use Anime\Model\Anime;
 use Anime\Model\AnimeTable;
+use Anime\Model\Comment;
+use Anime\Model\CommentTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
@@ -91,6 +93,17 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new ListRow());
                     return new TableGateway('list_row', $dbAdapter, null, $resultSetPrototype);
                 },
+                'CommentTable' =>  function($sm) {
+                    $tableGateway = $sm->get('CommentTableGateway');
+                    $table = new CommentTable($tableGateway);
+                    return $table;
+                },
+                'CommentTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Comment());
+                    return new TableGateway('comment', $dbAdapter, null, $resultSetPrototype);
+                },
                 'AddAnimeToListForm' => function ($sm) {
                     $form = new Form\AddAnimeToListForm();
                     $form->setInputFilter($sm->get('AddAnimeToListFilter'));
@@ -98,6 +111,22 @@ class Module implements AutoloaderProviderInterface
                 },
                 'AddAnimeToListFilter' => function ($sm) {
                     return new Form\AddAnimeToListFilter();
+                },
+                'AddCommentForm' => function ($sm) {
+                    $form = new Form\AddCommentForm();
+                    $form->setInputFilter($sm->get('AddCommentFilter'));
+                    return $form;
+                },
+                'AddCommentFilter' => function ($sm) {
+                    return new Form\AddCommentFilter();
+                },
+                'AnimeSearchForm' => function ($sm) {
+                    $form = new Form\AnimeSearchForm();
+                    $form->setInputFilter($sm->get('AnimeSearchFilter'));
+                    return $form;
+                },
+                'AnimeSearchFilter' => function ($sm) {
+                    return new Form\AnimeSearchFilter();
                 },
             ),
         );

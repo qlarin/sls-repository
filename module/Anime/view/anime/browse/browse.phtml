@@ -1,0 +1,73 @@
+<?php
+$this->headScript()->appendFile('http://code.jquery.com/jquery-1.8.3.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/1.10.0/jquery-ui.js','text/javascript');
+
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript(
+    '$(function() {
+ 	$("a.ui-button").button();
+  });', 'text/javascript');
+
+?>
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel panel-body">
+            <br>
+            <?php if (!empty($results)): ?>
+                <div class="panel panel-default">
+                    <div class="panel panel-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="col-xs-2">Animes</th>
+                                <th class="col-xs-5"></th>
+                                <th class="col-xs-2">Eps.</th>
+                                <th class="col-xs-2">Score</th>
+                                <th class="col-xs-2">Members</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($results as $result) : ?>
+                                <tr>
+                                    <td class="col-xs-2"><img src="<?php echo $this->basePath($result->imageUrl); ?>" class="img-icon"/></td>
+                                    <td class="col-xs-6 title-crop">
+                                        <a href="<?php echo $this->url('anime',
+                                            array('action'=>'details', 'id' => $result->id));?>">
+                                            <?php echo $this->escapeHtml($result->title);?>
+                                        </a>
+                                    </td>
+                                    <td class="col-xs-2"><?php echo $this->escapeHtml($result->episodes); ?></td>
+                                    <td class="col-xs-1"><?php echo $this->escapeHtml($result->avgRating).'/10'; ?></td>
+                                    <td class="col-xs-1"><?php echo $this->escapeHtml($result->countRating); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    </div>
+    <?php if ($this->error): ?>
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong class="error">
+                <?php echo $this->error ?>
+            </strong>
+        </div>
+    <?php endif ?>
+</div>
+<?php
+echo $this->paginationControl(
+    $this->results,
+    'sliding',
+    'partial/paginator.phtml',
+    array(
+        'route' => 'browse',
+    )
+);
+?>
+
+
