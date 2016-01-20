@@ -16,6 +16,7 @@ class Comment
     public $username;
     public $isAdmin;
     public $avatarUrl;
+    public $title;
 
     public function exchangeArray($data)
     {
@@ -27,6 +28,7 @@ class Comment
         $this->username = (!empty($data['username'])) ? $data['username'] : null;
         $this->isAdmin = (!empty($data['isAdmin'])) ? $data['isAdmin'] : null;
         $this->avatarUrl = (!empty($data['avatarUrl'])) ? $data['avatarUrl'] : null;
+        $this->title = (!empty($data['title'])) ? $data['title'] : null;
     }
 
     public function getArrayCopy()

@@ -22,7 +22,11 @@ class UserController extends AbstractActionController
             return $this->redirect()->toRoute('login');
         }
         $this->layout()->setVariable('user', $user);
-        $viewModel  = new ViewModel(array('user' => $user));
+        $userTable = $this->getServiceLocator()->get('UserTable');
+        $viewModel  = new ViewModel(array(
+            'user' => $userTable->getUser($user->id),
+            'activity' => $this->getActivity($user->id),
+        ));
         return $viewModel;
     }
 
@@ -113,5 +117,18 @@ class UserController extends AbstractActionController
             $equal = true;
         }
         return $equal;
+    }
+
+    private function getActivity($userId)
+    {
+        $listTable = $this->getServiceLocator()->get('ListRowTable');
+        $list = $listTable->fetchAllWithAnimeByUserId($userId);
+        $infos = array_count_values(array_column($list->toArray(), 'status'));
+        $commentTable = $this->getServiceLocator()->get('CommentTable');
+        $comments = $commentTable->getLastCommentsByUserId($userId);
+        return array(
+            'infos' => $infos,
+            'comments' => $comments->toArray(),
+        );
     }
 }

@@ -10,6 +10,8 @@ use User\Model\ListRow;
 use User\Model\ListRowTable;
 use Anime\Model\Anime;
 use Anime\Model\AnimeTable;
+use Anime\Model\Comment;
+use Anime\Model\CommentTable;
 use User\Model\Message;
 use User\Model\MessageTable;
 use Anime\Form\EditAnimeOnListFilter;
@@ -105,6 +107,17 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Message());
                     return new TableGateway('message', $dbAdapter, null, $resultSetPrototype);
+                },
+                'CommentTable' =>  function($sm) {
+                    $tableGateway = $sm->get('CommentTableGateway');
+                    $table = new CommentTable($tableGateway);
+                    return $table;
+                },
+                'CommentTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Comment());
+                    return new TableGateway('comment', $dbAdapter, null, $resultSetPrototype);
                 },
                 'RegisterForm' => function ($sm) {
                     $form = new Form\RegisterForm();

@@ -40,6 +40,16 @@ class CommentTable
         return $rowset;
     }
 
+    public function getLastCommentsByUserId($userId)
+    {
+        $rowset = $this->tableGateway->select(function (Select $select) use ($userId) {
+            $select->join('anime', 'comment.animeId = anime.id', array('title'));
+            $select->where('authorId = ' . $userId);
+            $select->order('id DESC')->limit(2);
+        });
+        return $rowset;
+    }
+
     public function saveComment(Comment $comment)
     {
         $data = array(

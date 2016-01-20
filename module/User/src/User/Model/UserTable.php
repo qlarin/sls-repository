@@ -73,6 +73,9 @@ class UserTable
                 if (empty($data['password'])) {
                     unset($data['password']);
                 }
+                if (empty($data['dor'])) {
+                    unset($data['dor']);
+                }
                 $data['username'] = $user->username;
                 $data['email'] = $user->email;
                 $this->tableGateway->update($data, array('id' => $id));
