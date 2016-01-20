@@ -64,9 +64,7 @@ class LoginController extends AbstractActionController
 				$userTable = $this->getServiceLocator()->get('UserTable');
 				$user = $userTable->getUserByEmail($this->request->getPost('email'));
 				$this->getAuthService()->getStorage()->write($user);
-				return $this->redirect()->toRoute('login', array(
-						'action' =>  'confirm'
-				));
+				return $this->redirect()->toUrl('/');
 			} else {
 				$model = new ViewModel(array(
 						'error' => 'Invalid credentials, try one more time',
