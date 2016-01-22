@@ -39,7 +39,11 @@ $this->headScript()->appendScript(
                                         </a>
                                     </td>
                                     <td class="col-xs-2"><?php echo $this->escapeHtml($result->episodes); ?></td>
-                                    <td class="col-xs-1"><?php echo $this->escapeHtml($result->avgRating).'/10'; ?></td>
+                                    <?php if (empty($result->avgRating)): ?>
+                                        <td class="col-xs-1">-</td>
+                                    <?php else: ?>
+                                        <td class="col-xs-1"><?php echo $this->escapeHtml($result->avgRating).'/10'; ?></td>
+                                    <?php endif ?>
                                     <td class="col-xs-1"><?php echo $this->escapeHtml($result->countRating); ?></td>
                                 </tr>
                             <?php endforeach; ?>

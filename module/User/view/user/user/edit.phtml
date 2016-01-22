@@ -36,8 +36,11 @@
             echo $this->formElement($form->get('location'));
             echo $this->formElementErrors($form->get('location'));
             ?></dd>
-
-        <img src="<?php echo $this->basePath($user->avatarUrl); ?>"/>
+        <?php if (empty($user->avatarUrl)): ?>
+            <img src="//placehold.it/200x200" class="img-thumbnail"/>
+        <?php else: ?>
+            <img src="<?php echo $this->basePath($user->avatarUrl); ?>"/>
+        <?php endif ?>
         <dd><?php
             echo $this->formLabel($form->get('avatarUrl'));
             echo $this->formFile($form->get('avatarUrl'));

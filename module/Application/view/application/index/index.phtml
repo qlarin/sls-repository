@@ -1,18 +1,28 @@
-<div class="jumbotron">
-    <h1><?php echo sprintf($this->translate('Welcome to %sSLS%s'), '<span class="zf-red">', '</span>') ?></h1>
-        <p>Congratulations! You are the first one who can test our new application.</p>
-        <p>Feel free to tell us what do you think about this site :)</p>
+<div class="container-fluid center-block">
+    <div class="row">
+        <img src="<?php echo $this->basePath('/img/banner.jpg'); ?>" class="img-responsive">
+    </div>
 </div>
-
 <div class="row">
-    <div class="col-md-6">
+    <hr />
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $this->translate('Check our anime DB') ?></h3>
+                <div class="panel-title">Check our anime DB</div>
             </div>
-            <div class="panel-body">
-                <p>In this thread, you'll find a comprehensive list of anime.</p>
-                <p><a class="btn btn-success pull-right" href="/anime">Anime list &raquo;</a></p>
+            <div class="panel-body text-center">
+                <h3 class="">Custom Lists</h3>
+                <p>Our system allow you to create a specific list for every anime you choose!!</p>
+                <hr />
+                <h3>Community</h3>
+                <p>You can discuss with others using our comments system!</p>
+                <p>If u want, you can also check list of your friend! Share your list using simple url!</p>
+                <hr />
+                <h3>Rate system</h3>
+                <p>Rate your favorite animes!</p>
+                <hr />
+                <a href="/register" class="btn btn-default" role="button">Sign-up today</a>&nbsp;
+                <a href="/login" class="btn btn-default" role="button">Login now</a>
             </div>
         </div>
     </div>

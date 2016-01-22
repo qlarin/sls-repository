@@ -41,7 +41,11 @@ $this->headScript()->appendScript(
                         <?php else: ?>
                             <td></td>
                         <?php endif ?>
-                        <td><?php echo $animeRow->rating; ?></td>
+                        <?php if (empty($animeRow->rating)): ?>
+                            <td>-</td>
+                        <?php else: ?>
+                            <td><?php echo $animeRow->rating; ?>/10</td>
+                        <?php endif ?>
                         <td><?php echo $animeRow->status; ?></td>
                         <td><?php echo $animeRow->episode . '/' . $animeRow->episodes; ?></td>
                     </tr>
