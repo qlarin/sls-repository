@@ -58,7 +58,11 @@
             echo $this->formElementErrors($form->get('episodes'));
             ?></dd>
         </br>
-        <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>"/>
+        <?php if (empty($anime->imageUrl)): ?>
+            <img src="//placehold.it/225x320" class="img-responsive">
+        <?php else: ?>
+            <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>"/>
+        <?php endif ?>
         </br>
         <dd><?php
             echo $this->formLabel($form->get('imageUrl'));

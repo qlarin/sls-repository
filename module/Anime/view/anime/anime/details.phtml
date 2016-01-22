@@ -17,7 +17,7 @@ $this->headScript()->appendScript(
                 <div class="col-xs-12">
                     <div class="col-md-3">
                         <?php if (empty($anime->imageUrl)): ?>
-                            <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
+                            <img src="//placehold.it/225x320" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
                         <?php else: ?>
                             <img src="<?php echo $this->basePath($anime->imageUrl); ?>" alt="<?php echo $anime->title; ?>" class="img-responsive"/>
                         <?php endif ?>
@@ -71,7 +71,11 @@ $this->headScript()->appendScript(
                 </div>
                 <div class="row spec center-block">
                     <div class="col-xs-4">Average rating</div>
-                    <div class="col-xs-8"><?php echo $this->escapeHtml($anime->avgRating); ?></div>
+                    <?php if (empty($anime->avgRating)): ?>
+                        <div class="col-xs-8">-</div>
+                    <?php else: ?>
+                        <div class="col-xs-8"><?php echo $this->escapeHtml($anime->avgRating); ?>/10</div>
+                    <?php endif ?>
                 </div>
                 <div class="row spec center-block">
                     <div class="col-xs-4">Episodes</div>
@@ -166,7 +170,7 @@ $this->headScript()->appendScript(
                             <div class="col-xs-3">
                                 <div class="thumbnail">
                                     <?php if (empty($comment->avatarUrl)): ?>
-                                        <img src="<?php echo $this->basePath('img/photo262.svg'); ?>" class="img-responsive"/>
+                                        <img src="//placehold.it/200x200" class="img-responsive"/>
                                     <?php else: ?>
                                         <img src="<?php echo $this->basePath($comment->avatarUrl); ?>" class="img-responsive"/>
                                     <?php endif ?>
