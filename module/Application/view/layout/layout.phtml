@@ -40,6 +40,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="<?php echo $this->url('home') ?>">&nbsp;<?php echo $this->translate('Home') ?></a></li>
                 <li><a href="<?php echo $this->url('anime') ?>">&nbsp;<?php echo $this->translate('Anime') ?></a></li>
+                <li><a href="<?php echo $this->url('browse') ?>">&nbsp;<?php echo $this->translate('Browse') ?></a></li>
                 <?php if (!$this->user): ?>
                     <li><a href="<?php echo $this->url('login') ?>">&nbsp;<?php echo $this->translate('Login') ?></a></li>
                     <li><a href="<?php echo $this->url('register') ?>">&nbsp;<?php echo $this->translate('Sign-up') ?></a></li>
@@ -54,10 +55,12 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<?php echo $this->url('user') ?>">&nbsp;<?php echo $this->translate('Profile') ?></a></li>
+                            <li><a href="<?php echo $this->url('list', array('action'=>'anime', 'id' => $user->id)); ?>">&nbsp;<?php echo $this->translate('My anime list') ?></a></li>
                             <li class="divider"></li>
                             <?php if ($user->isAdmin): ?>
                                 <li><a href="<?php echo $this->url('admin') ?>">&nbsp;<?php echo $this->translate('Admin panel') ?></a></li>
                                 <li><a href="<?php echo $this->url('admin/manage-anime') ?>">&nbsp;<?php echo $this->translate('Manage animes') ?></a></li>
+                                <li><a href="<?php echo $this->url('admin/manage-users') ?>">&nbsp;<?php echo $this->translate('Manage users') ?></a></li>
                                 <li class="divider"></li>
                             <?php endif ?>
                             <li><a href="<?php echo $this->url('logout') ?>">&nbsp;<?php echo $this->translate('Logout') ?></a></li>
